@@ -1,0 +1,6 @@
+.paypal {
+  position: relative;
+  top: -85px;
+  z-index: 10000;
+  opacity: 0;
+}

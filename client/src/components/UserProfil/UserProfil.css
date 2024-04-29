@@ -1,0 +1,66 @@
+.user-profil {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5rem;
+  width: 75%;
+}
+
+#user-list {
+  position: absolute;
+  left: 15%;
+  top: 45%;
+  line-height: 4rem;
+}
+#user-list ul {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+  color: var(--main-color);
+  font-weight: 500;
+}
+#user-list li:hover {
+  border-bottom: 0.1rem solid var(--main-color);
+  transition-duration: 0.7s;
+}
+
+.information-sections {
+  font-family: "Poppins";
+  max-width: 50%;
+}
+#orders-container p {
+  border: 0.5px solid black;
+  padding: 2% 0;
+  text-align: center;
+  margin-top: 2%;
+}
+
+#details-container {
+  line-height: 2rem;
+}
+
+@media screen and (max-width: 744px) {
+  #user-list {
+    left: 5%;
+    top: 35%;
+    width: 59%;
+  }
+  #user-list li:hover {
+    border-bottom: 0.1rem solid var(--main-color);
+    width: 70%;
+    transition-duration: 0.7s;
+  }
+  #user-list ul {
+    position: absolute;
+  }
+}
+@media screen and (min-width: 744px) and (max-width: 1124px) {
+  #user-list {
+    left: 5%;
+    top: 20%;
+    width: 59%;
+  }
+  #user-list li:hover {
+    width: 60%;
+  }
+}

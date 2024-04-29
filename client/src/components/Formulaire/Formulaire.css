@@ -1,0 +1,155 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 30px;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.labelLeft {
+  margin-right: 1rem;
+}
+
+.container-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 70px;
+  font-family: "Poppins";
+  color: #7b7b7b;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  padding-right: 20px;
+}
+
+.usedata,
+.usedata-2 {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.Home {
+  width: 100%;
+}
+
+.position {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#nom {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#prenom {
+  width: 80%;
+  padding: 8px;
+  margin-right: 40px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#email {
+  width: 97%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#telephone {
+  width: 80%;
+  padding: 8px;
+  margin-right: 20px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#ville {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#codePostal {
+  width: 80%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#adresse {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+label {
+  font-weight: bold;
+}
+
+#valider {
+  height: 70%;
+  width: 100%;
+  padding: 10%;
+  background-color: rgba(0, 0, 255, 0.363);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 30px;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#valider:hover {
+  transform: scale(0.9);
+}
+
+.bigContainer {
+  max-width: 66%;
+  margin: 0 auto;
+  padding: 20px;
+}
+.titleComment {
+  color: var(--main-color);
+  margin-left: 30%;
+}
+
+#error-message {
+  color: red;
+  font-family: "Poppins";
+  padding: 2%;
+  font-size: 1rem;
+}

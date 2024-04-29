@@ -1,0 +1,170 @@
+.search-bar {
+  font-family: "poppins";
+  color: var(--main-color);
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  display: flex;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 30px;
+  font-weight: 300;
+}
+
+.search-bar label {
+  font-weight: 300;
+}
+
+#date {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  justify-content: space-evenly;
+  height: 100%;
+  align-items: center;
+  border-right: 1px solid var(--secondary-color);
+  border-radius: 30px 30px;
+}
+
+#price-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  justify-content: space-evenly;
+  height: 100%;
+  align-items: center;
+  border-right: 1px solid var(--secondary-color);
+  border-radius: 30px 30px;
+}
+#search-name {
+  display: flex;
+  flex-wrap: wrap;
+  width: 30%;
+  justify-content: space-evenly;
+  height: 100%;
+  align-items: center;
+  border-right: 1px solid var(--secondary-color);
+  border-radius: 30px 30px;
+}
+input#name-hero {
+  border: 0.5px solid var(--secondary-color);
+  width: 9rem;
+  height: 2rem;
+  border-radius: 30px;
+}
+.search {
+  display: block;
+  width: 20%;
+  height: 100%;
+  border: none;
+  border-radius: 30px;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  background-color: var(--main-color);
+  color: white;
+  cursor: pointer;
+}
+
+.react-datepicker__input-container > input {
+  border: 0.5px solid var(--secondary-color);
+  width: 12rem;
+  height: 2rem;
+  border-radius: 30px;
+}
+
+#price {
+  border: 0.5px solid var(--secondary-color);
+  width: 12rem;
+  height: 2rem;
+  border-radius: 30px;
+}
+.loupe {
+  display: none;
+}
+
+/* VERSION MOBILE */
+@media screen and (max-width: 744px) {
+  .search-bar {
+    width: 100%;
+    height: 3rem;
+  }
+  .react-datepicker__input-container > input,
+  #price {
+    width: 5rem;
+    height: 1rem;
+  }
+  #date,
+  #price-container,
+  #search-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  input#name-hero {
+    width: 4rem;
+    height: 1rem;
+  }
+  .loupe {
+    display: block;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--main-color);
+    width: 20%;
+    height: 100%;
+  }
+  .loupe svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+  }
+  .search {
+    display: none;
+  }
+}
+/* VERSION TABLETTE */
+@media screen and (min-width: 744px) and (max-width: 1124px) {
+  .search-bar {
+    width: 90%;
+  }
+  .react-datepicker__input-container > input {
+    width: 10rem;
+  }
+  #price {
+    width: 10rem;
+  }
+  .search {
+    width: 15%;
+  }
+  .search-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4rem 0 2rem;
+  }
+  #date,
+  #price-container,
+  #search-name {
+    display: flex;
+    flex-direction: column;
+  }
+  .search-bar {
+    width: 90%;
+  }
+  .loupe {
+    display: block;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--secondary-color);
+    opacity: 50%;
+    width: 20%;
+    height: 100%;
+  }
+  .loupe svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+  }
+  .search {
+    display: none;
+  }
+}

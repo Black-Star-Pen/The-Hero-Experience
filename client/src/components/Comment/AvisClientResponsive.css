@@ -1,0 +1,48 @@
+@media screen and (max-width: 830px) {
+  .comment-space {
+    display: flex;
+    flex-direction: column;
+    width: 464px;
+    padding: 0px;
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+  .liner-top {
+    display: none;
+  }
+  .liner-down {
+    display: none;
+  }
+
+  .comment-form h3 {
+    margin-bottom: 1rem;
+  }
+
+  .user-comment {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .comment-space {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    padding: 0px;
+    max-width: 100%;
+  }
+  .liner-top {
+    display: none;
+  }
+  .liner-down {
+    display: none;
+  }
+
+  .comment-form h3 {
+    margin-bottom: 1rem;
+  }
+
+  .user-comment {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,81 @@
+@media screen and (max-width: 830px) {
+  .container-data {
+    color: #7b7b7b;
+    padding-right: 0px;
+    padding-left: 33px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 464px;
+    max-width: 100%;
+    background-color: #e1e1e1;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+  .container-button {
+    width: 100%;
+    padding-right: 0px;
+    margin-top: 1rem;
+  }
+  .labelLeft {
+    margin-right: 1rem;
+  }
+  #valider {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .bigContainer {
+    margin-top: 1rem;
+    max-width: 100%;
+  }
+  .titleComment {
+    margin-left: 28%;
+    margin-right: 25%;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .container-data {
+    color: #7b7b7b;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    max-width: 100%;
+    background-color: #e1e1e1;
+    padding: 5px;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+  .labelLeft {
+    margin-right: 1rem;
+  }
+
+  .container-button {
+    width: 80%;
+    padding-right: 0px;
+    margin-top: 5px;
+    margin-left: 32px;
+    margin-bottom: 15px;
+  }
+
+  #valider {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .bigContainer {
+    margin-top: 1rem;
+    max-width: 100%;
+  }
+
+  .titleComment {
+    margin-left: 10%;
+    margin-right: 0%;
+    font-size: 20px;
+  }
+  #error-message {
+    font-size: 0.7rem;
+  }
+}

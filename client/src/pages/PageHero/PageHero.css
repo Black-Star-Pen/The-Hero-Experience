@@ -1,0 +1,69 @@
+.profilHero {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.profilHero > img {
+  width: 320px;
+  height: 300px;
+  border-radius: 25px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  object-fit: cover;
+}
+.nameHero {
+  font-size: 2rem;
+}
+.price {
+  font-family: "poppins";
+  font-weight: bold;
+  color: #6060c1;
+}
+
+.textHero {
+  display: flex;
+  flex-direction: column;
+  padding: 1px 3px 6px 10px;
+  width: 29rem;
+  height: 300px;
+  font-family: "poppins";
+  font-size: 14px;
+  font-weight: 200;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow: scroll;
+  box-sizing: border-box;
+}
+
+.parts {
+  display: flex;
+  width: 27rem;
+  margin-top: 1rem;
+}
+.partLeft {
+  width: 17rem;
+  margin-right: 2rem;
+}
+.partRight {
+  width: 10rem;
+  font-size: 15px;
+}
+
+.descriptions {
+  font-size: 15px;
+}
+.bioCategories {
+  color: #0b0b52;
+}
+
+.liner-top {
+  margin: -10px 40px;
+  padding: 80px;
+}
+
+.liner-down {
+  margin: -10px 40px;
+  padding: 80px 80px 80px 80px;
+}

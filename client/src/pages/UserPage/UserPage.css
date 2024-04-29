@@ -1,0 +1,67 @@
+.card-user-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-user-container form {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "poppins";
+  color: var(--main-color);
+  font-weight: 500;
+  margin-top: 3rem;
+}
+.card-user-container button {
+  width: 50%;
+  margin: 5%;
+  padding: 1% 0;
+  background-color: var(--main-color);
+  color: white;
+  font-size: 1.5rem;
+  border: 1px solid;
+  border-radius: 30px;
+}
+#email-container,
+#password-container {
+  margin: 5% 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#email-container input,
+#password-container input {
+  border-radius: 30px;
+  border: 0.5px solid var(--main-color);
+  width: 12rem;
+}
+
+#email-container label {
+  margin-right: 8%;
+}
+
+#password-container label {
+  margin-right: 3%;
+}
+#error-log {
+  font-style: italic;
+  color: red;
+}
+
+#welcome-message {
+  font-family: "Poppins";
+  color: var(--main-color);
+  text-align: center;
+}
+@media screen and (max-width: 744px) {
+  #error-log {
+    font-size: 0.8rem;
+  }
+}

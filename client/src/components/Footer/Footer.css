@@ -1,0 +1,163 @@
+.copyright {
+  font-family: poppins;
+  color: white;
+  font-weight: 300;
+  margin-left: 1rem;
+  font-size: clamp(0.6rem, 2vw, 0.8rem);
+}
+
+#footer {
+  background-color: black;
+  height: 25rem;
+  width: 100%;
+  font-family: poppins;
+  color: white;
+}
+#footer-content p {
+  font-size: 1.3rem;
+}
+
+#footer-content {
+  display: flex;
+  justify-content: space-evenly;
+  height: 93%;
+  align-items: center;
+}
+
+#opinion-and-payment-part,
+#seen-and-question-part,
+#follow-and-greetings-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 90%;
+}
+
+#follow-and-greetings-part {
+  height: 100%;
+}
+
+#opinion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 50%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#payment {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 35%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#follow,
+#greetings,
+#seen-on {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#question {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 40%;
+  align-items: center;
+  justify-content: center;
+}
+#follow-logos {
+  display: flex;
+  width: 80%;
+  justify-content: space-evenly;
+}
+
+#question > a {
+  text-decoration: underline;
+  font-family: "poppins";
+  color: white;
+  cursor: pointer;
+}
+
+hr {
+  height: 60%;
+}
+
+#seen-on svg {
+  width: 200px;
+  height: 40px;
+}
+/* VERSION MOBILE */
+@media screen and (max-width: 744px) {
+  #footer {
+    display: flex;
+    flex-direction: column;
+    height: initial;
+  }
+  #footer-content {
+    display: flex;
+    flex-direction: column;
+  }
+  hr {
+    height: initial;
+    width: 60%;
+  }
+
+  #footer p {
+    font-size: 0.7rem;
+  }
+  #opinion-and-payment-part svg,
+  #greetings svg,
+  #seen-on svg {
+    width: 80px;
+  }
+  #follow-logos svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 2%;
+  }
+  #follow-logos {
+    justify-content: center;
+    margin: 3% 0;
+  }
+
+  #opinion-and-payment-part,
+  #seen-and-question-part,
+  #follow-and-greetings-part {
+    padding: 1rem;
+  }
+  #question > a {
+    font-size: 0.8rem;
+  }
+
+  #payment p {
+    margin: 2% 0;
+  }
+}
+/* VERSION TABLETTE */
+@media screen and (min-width: 744px) and (max-width: 1124px) {
+  #footer-content p {
+    font-size: 1rem;
+  }
+  #opinion-and-payment-part svg,
+  #greetings svg,
+  #seen-on svg {
+    width: 110px;
+  }
+  #opinion p {
+    font-size: 0.8rem;
+  }
+  #follow-logos svg {
+    width: 40px;
+    height: 40px;
+  }
+}
