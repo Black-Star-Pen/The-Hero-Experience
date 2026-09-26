@@ -32,6 +32,10 @@ const envSchema = z.preprocess(
         .transform((dir) => path.resolve(serverRoot, dir)),
       /** Set to true behind a reverse proxy so client IPs are read from X-Forwarded-For. */
       TRUST_PROXY: booleanString.default(false),
+      /** Requests allowed per IP address and per 15 minutes on the whole API. */
+      API_RATE_LIMIT: z.coerce.number().int().positive().default(600),
+      /** Failed sign-in / sign-up attempts allowed per IP address and per 15 minutes. */
+      AUTH_RATE_LIMIT: z.coerce.number().int().positive().default(10),
       /** Production build of the client, served by the API in production. */
       CLIENT_DIST_DIR: z
         .string()

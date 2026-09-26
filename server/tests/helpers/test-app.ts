@@ -6,7 +6,14 @@ import { createLogger } from "../../src/lib/logger.ts";
 
 /** Builds the app on top of a fresh in-memory PostgreSQL database (PGlite). */
 export async function createTestApp(overrides: Partial<Env> = {}) {
-  const env: Env = { ...loadEnv({ NODE_ENV: "test" }), ...overrides };
+  const env: Env = {
+    ...loadEnv({
+      NODE_ENV: "test",
+      API_RATE_LIMIT: "100000",
+      AUTH_RATE_LIMIT: "100000",
+    }),
+    ...overrides,
+  };
   const logger = createLogger({ NODE_ENV: "test", LOG_LEVEL: "silent" });
   const connection = await connectDatabase({});
   await runMigrations(connection);

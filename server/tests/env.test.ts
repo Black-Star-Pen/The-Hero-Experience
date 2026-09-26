@@ -11,6 +11,8 @@ describe("loadEnv", () => {
       LOG_LEVEL: "info",
       PGLITE_DATA_DIR: path.join(serverRoot, ".data/pglite"),
       TRUST_PROXY: false,
+      API_RATE_LIMIT: 600,
+      AUTH_RATE_LIMIT: 10,
       CLIENT_DIST_DIR: path.resolve(serverRoot, "../client/dist"),
     });
   });
