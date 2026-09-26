@@ -40,8 +40,11 @@
   font-size: var(--text-lg);
 }
 
+/* Already as wide as possible: a long label wraps instead of overflowing */
 .block {
   width: 100%;
+  white-space: normal;
+  text-align: center;
 }
 
 .primary {

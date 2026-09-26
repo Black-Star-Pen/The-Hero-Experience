@@ -1,6 +1,8 @@
 .field {
   display: grid;
   gap: var(--space-1);
+  /* In a grid or a flex row, never wider than the room it is given */
+  min-width: 0;
 }
 
 .label {
