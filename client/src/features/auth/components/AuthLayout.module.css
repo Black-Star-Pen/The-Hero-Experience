@@ -21,9 +21,18 @@
 }
 
 /* Shared by the forms of the account pages */
-.form {
+.form,
+.fields {
   display: grid;
   gap: var(--space-4);
+}
+
+/* Groups every field of a form, to disable them at once */
+.fields {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .row {

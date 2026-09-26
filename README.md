@@ -56,7 +56,9 @@ npm run dev
 Au premier lancement, l'API crée la base (`server/.data/`), importe les héros depuis la
 [SuperHero API](https://github.com/akabab/superhero-api) et ajoute des données de démonstration.
 
-**Compte de démo** : `demo@hero-experience.test` / `hero-demo-2026`
+**Compte de démo** : `demo@hero-experience.test` / `hero-demo-2026`. Partagé par tous les
+visiteurs, il est remis à zéro chaque nuit et son profil comme son mot de passe ne sont pas
+modifiables.
 
 ### Utiliser un vrai PostgreSQL
 

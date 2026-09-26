@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from "react-router";
+import { Alert } from "../components/ui/Alert.tsx";
 import { Container } from "../components/ui/Container.tsx";
 import { PageHeader } from "../components/ui/PageHeader.tsx";
 import { Loading } from "../components/ui/Spinner.tsx";
@@ -6,6 +7,7 @@ import { MyBookings } from "../features/account/components/MyBookings.tsx";
 import { PasswordForm } from "../features/account/components/PasswordForm.tsx";
 import { ProfileForm } from "../features/account/components/ProfileForm.tsx";
 import { useSession } from "../features/auth/api.ts";
+import { isDemoAccount } from "../features/auth/demo.ts";
 import styles from "./AccountPage.module.css";
 
 const TABS = [
@@ -27,6 +29,7 @@ export function AccountPage() {
   // RequireAuth guarantees a signed-in user
   if (!session.data) return <Loading />;
   const user = session.data;
+  const demo = isDemoAccount(user);
 
   return (
     <>
@@ -47,10 +50,19 @@ export function AccountPage() {
             </Link>
           ))}
         </nav>
+        {demo && (
+          <Alert tone="info" title="Compte de démo">
+            <p>
+              Réservez, annulez, donnez votre avis : tout est remis à zéro
+              chaque nuit. Le profil et le mot de passe de ce compte partagé ne
+              peuvent pas être modifiés.
+            </p>
+          </Alert>
+        )}
         <div className={styles.panel}>
           {tab === "reservations" && <MyBookings />}
           {tab === "profil" && <ProfileForm user={user} />}
-          {tab === "securite" && <PasswordForm />}
+          {tab === "securite" && <PasswordForm readOnly={demo} />}
         </div>
       </Container>
     </>

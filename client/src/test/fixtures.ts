@@ -106,6 +106,15 @@ export const demoUser: User = {
   createdAt: "2026-09-01T10:00:00.000Z",
 };
 
+/** A customer with their own account (the demo account cannot be edited). */
+export const customer: User = {
+  ...demoUser,
+  id: 2,
+  email: "miles@brooklyn.test",
+  firstName: "Miles",
+  lastName: "Morales",
+};
+
 const bookingDefaults = {
   address: "20 Ingram Street",
   postalCode: "75011",

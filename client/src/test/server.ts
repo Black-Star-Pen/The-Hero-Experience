@@ -53,6 +53,15 @@ const error = (status: number, code: string, message: string) =>
 const unauthorized = () =>
   error(401, "UNAUTHORIZED", "Authentification requise.");
 
+const demoReadOnly = () =>
+  state.user?.email === DEMO_CREDENTIALS.email
+    ? error(
+        403,
+        "DEMO_ACCOUNT_READ_ONLY",
+        "Le compte de démo ne peut pas être modifié : créez votre propre compte pour essayer.",
+      )
+    : undefined;
+
 const hasBooked = (heroId: number) =>
   state.bookings.some(
     (booking) => booking.hero.id === heroId && booking.status === "confirmed",
@@ -163,6 +172,8 @@ export const server = setupServer(
   }),
   http.patch("*/api/me", async ({ request }) => {
     if (!state.user) return unauthorized();
+    const readOnly = demoReadOnly();
+    if (readOnly) return readOnly;
     state.user = {
       ...state.user,
       ...((await request.json()) as ProfileInput),
@@ -171,6 +182,8 @@ export const server = setupServer(
   }),
   http.put("*/api/me/password", async ({ request }) => {
     if (!state.user) return unauthorized();
+    const readOnly = demoReadOnly();
+    if (readOnly) return readOnly;
     const { currentPassword } = (await request.json()) as ChangePasswordInput;
     if (currentPassword !== DEMO_CREDENTIALS.password) {
       const message = "Le mot de passe actuel est incorrect.";

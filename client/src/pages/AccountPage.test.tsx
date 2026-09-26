@@ -1,6 +1,6 @@
 import { screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { pastBooking, upcomingBooking } from "../test/fixtures.ts";
+import { customer, pastBooking, upcomingBooking } from "../test/fixtures.ts";
 import { renderRoute } from "../test/render.tsx";
 import { signIn } from "../test/server.ts";
 
@@ -65,13 +65,13 @@ describe("account page", () => {
   });
 
   it("updates the profile", async () => {
-    signIn();
+    signIn({ user: customer });
     const { user } = renderRoute("/compte?onglet=profil");
 
     const firstName = await screen.findByLabelText(/Prénom/);
-    expect(firstName).toHaveValue("Mary Jane");
+    expect(firstName).toHaveValue("Miles");
     await user.clear(firstName);
-    await user.type(firstName, "MJ");
+    await user.type(firstName, "Spidey");
     await user.clear(screen.getByLabelText(/Code postal/));
     await user.type(screen.getByLabelText(/Code postal/), "750");
     await user.click(screen.getByRole("button", { name: "Enregistrer" }));
@@ -87,12 +87,12 @@ describe("account page", () => {
       await screen.findByText("Votre profil a été mis à jour."),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Bonjour MJ !" }),
+      screen.getByRole("heading", { name: "Bonjour Spidey !" }),
     ).toBeInTheDocument();
   });
 
   it("shows the error of the API next to the password field", async () => {
-    signIn();
+    signIn({ user: customer });
     const { user } = renderRoute("/compte?onglet=securite");
 
     await user.type(
@@ -114,5 +114,17 @@ describe("account page", () => {
       "aria-invalid",
       "true",
     );
+  });
+
+  it("keeps the profile and the password of the demo account", async () => {
+    signIn();
+    const { user } = renderRoute("/compte?onglet=profil");
+
+    expect(await screen.findByText("Compte de démo")).toBeInTheDocument();
+    expect(screen.getByLabelText(/Prénom/)).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Enregistrer" })).toBeDisabled();
+
+    await user.click(screen.getByRole("link", { name: "Sécurité" }));
+    expect(await screen.findByLabelText(/Mot de passe actuel/)).toBeDisabled();
   });
 });

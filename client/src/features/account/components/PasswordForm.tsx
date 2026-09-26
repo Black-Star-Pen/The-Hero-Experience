@@ -10,7 +10,7 @@ import { useZodForm } from "../../../lib/forms.ts";
 import { useChangePassword } from "../../auth/api.ts";
 import styles from "../../auth/components/AuthLayout.module.css";
 
-export function PasswordForm() {
+export function PasswordForm({ readOnly = false }: { readOnly?: boolean }) {
   const change = useChangePassword();
   const [done, setDone] = useState(false);
   // Remounting the form empties its fields after a successful change
@@ -26,38 +26,35 @@ export function PasswordForm() {
   );
 
   return (
-    <form
-      key={formKey}
-      className={styles.form}
-      noValidate
-      onSubmit={handleSubmit()}
-    >
-      <TextField
-        label="Mot de passe actuel"
-        name="currentPassword"
-        type="password"
-        autoComplete="current-password"
-        required
-        error={fieldErrors.currentPassword}
-      />
-      <TextField
-        label="Nouveau mot de passe"
-        name="newPassword"
-        type="password"
-        autoComplete="new-password"
-        required
-        hint={`Au moins ${PASSWORD_MIN_LENGTH} caractères.`}
-        error={fieldErrors.newPassword}
-      />
-      {formError && <Alert tone="error">{formError}</Alert>}
-      {done && (
-        <Alert tone="success">
-          Mot de passe modifié. Vos autres appareils ont été déconnectés.
-        </Alert>
-      )}
-      <Button type="submit" loading={change.isPending}>
-        Changer mon mot de passe
-      </Button>
+    <form key={formKey} noValidate onSubmit={handleSubmit()}>
+      <fieldset className={styles.fields} disabled={readOnly}>
+        <TextField
+          label="Mot de passe actuel"
+          name="currentPassword"
+          type="password"
+          autoComplete="current-password"
+          required
+          error={fieldErrors.currentPassword}
+        />
+        <TextField
+          label="Nouveau mot de passe"
+          name="newPassword"
+          type="password"
+          autoComplete="new-password"
+          required
+          hint={`Au moins ${PASSWORD_MIN_LENGTH} caractères.`}
+          error={fieldErrors.newPassword}
+        />
+        {formError && <Alert tone="error">{formError}</Alert>}
+        {done && (
+          <Alert tone="success">
+            Mot de passe modifié. Vos autres appareils ont été déconnectés.
+          </Alert>
+        )}
+        <Button type="submit" loading={change.isPending}>
+          Changer mon mot de passe
+        </Button>
+      </fieldset>
     </form>
   );
 }
