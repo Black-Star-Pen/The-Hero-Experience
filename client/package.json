@@ -1,5 +1,6 @@
 {
-  "name": "@harmonia/client",
+  "name": "@hero-experience/client",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -33,9 +34,5 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "^3.1.1",
     "vite": "^5.0.12"
-  },
-  "lint-staged": {
-    "*.{html,scss,css}": "prettier --check",
-    "*.{jsx,js}": "eslint --report-unused-disable-directives"
   }
 }
