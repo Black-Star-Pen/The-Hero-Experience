@@ -47,35 +47,17 @@ function AvisClient() {
     setNewComment({ user: "", content: "", rating: 0 });
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i += 1) {
-      if (i <= rating) {
-        stars.push(
-          <span
-            key={i}
-            onClick={() => handleRatingChange(i)}
-            onKeyDown={() => handleRatingChange(i)}
-            role="presentation"
-          >
-            &#9733;
-          </span>
-        );
-      } else {
-        stars.push(
-          <span
-            key={i}
-            onClick={() => handleRatingChange(i)}
-            onKeyDown={() => handleRatingChange(i)}
-            role="presentation"
-          >
-            &#9734;
-          </span>
-        );
-      }
-    }
-    return stars;
-  };
+  const renderStars = (rating) =>
+    [1, 2, 3, 4, 5].map((value) => (
+      <span
+        key={value}
+        onClick={() => handleRatingChange(value)}
+        onKeyDown={() => handleRatingChange(value)}
+        role="presentation"
+      >
+        {value <= rating ? "★" : "☆"}
+      </span>
+    ));
 
   return (
     <div className="comment-space">

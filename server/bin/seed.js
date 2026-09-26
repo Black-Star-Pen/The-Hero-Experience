@@ -17,7 +17,6 @@ const seed = async () => {
     fs.readdirSync(fixtures)
       .filter((filePath) => !filePath.startsWith("Abstract"))
       .forEach((filePath) => {
-        // eslint-disable-next-line import/no-dynamic-require, global-require
         const SeederClass = require(path.join(fixtures, filePath));
 
         const seeder = new SeederClass();

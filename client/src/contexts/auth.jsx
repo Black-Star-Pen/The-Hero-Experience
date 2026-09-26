@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, use, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
 const StatusContext = createContext();
@@ -11,13 +11,13 @@ export function StatusProvider({ children }) {
     () => ({ login, setLogin, currentUser, setCurrentUser }),
     [login, setLogin, currentUser, setCurrentUser]
   );
-  return (
-    <StatusContext.Provider value={state}>{children}</StatusContext.Provider>
-  );
+  return <StatusContext value={state}>{children}</StatusContext>;
 }
 
 StatusProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const useStatus = () => useContext(StatusContext);
+// Temporary client-side session, replaced by server sessions later on.
+// eslint-disable-next-line react-refresh/only-export-components
+export const useStatus = () => use(StatusContext);

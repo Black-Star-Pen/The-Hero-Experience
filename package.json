@@ -2,6 +2,7 @@
   "name": "hero-experience",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "description": "The Hero Experience : réservez un super-héros pour vos déménagements, cours, événements et plus encore.",
   "homepage": "https://github.com/Black-Star-Pen/Hero-experience#readme",
   "bugs": {
@@ -11,7 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/Black-Star-Pen/Hero-experience.git"
   },
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "engines": {
     "node": ">=24"
   },
@@ -22,13 +26,32 @@
     "dev:client": "npm run dev --workspace=client",
     "dev:server": "npm run dev --workspace=server",
     "test": "npm run test --workspaces --if-present",
-    "clean": "cross-env-shell \"rm -rf ./client/node_modules ./server/node_modules ./node_modules ./package-lock.json\""
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "node -e \"for (const dir of ['node_modules', 'client/node_modules', 'server/node_modules', 'client/dist']) require('node:fs').rmSync(dir, { recursive: true, force: true })\"",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "Black-Star-Pen",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "cross-env": "^7.0.3"
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@eslint-react/eslint-plugin": "^5.20.8",
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y-x": "^0.2.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.70.1"
   }
 }

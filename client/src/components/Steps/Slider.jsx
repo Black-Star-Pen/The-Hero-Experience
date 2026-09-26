@@ -1,5 +1,3 @@
-/* eslint-disable import/order */
-/* eslint-disable import/no-unresolved */
 import { Swiper, SwiperSlide } from "swiper/react";
 import sliderOne from "../../assets/images/etapes/etape-1.svg";
 import sliderTwo from "../../assets/images/etapes/etape-2.svg";

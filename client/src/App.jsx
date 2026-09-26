@@ -21,7 +21,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [search, setSearch] = useState("");
   const [filterHeroes, setFilterHeroes] = useState([]);
-  const [searchDate, setSearchDate] = useState(new Date());
+  const [searchDate, setSearchDate] = useState(() => new Date());
   const [searchName, setSearchName] = useState("");
   const [hideButton, setHideButton] = useState(false);
   
