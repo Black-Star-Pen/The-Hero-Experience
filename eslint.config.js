@@ -17,8 +17,15 @@ export default defineConfig([
     linterOptions: { reportUnusedDisableDirectives: "error" },
   },
   {
+    // Type-aware rules (floating promises, unsafe any…) for TypeScript code
     files: ["**/*.{ts,mts,cts,tsx}"],
-    extends: [tseslint.configs.recommended],
+    extends: [tseslint.configs.recommendedTypeChecked],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
   },
 
   // Tooling files at the repository root
