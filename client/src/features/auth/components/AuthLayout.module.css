@@ -1,0 +1,33 @@
+.page {
+  display: grid;
+  gap: var(--space-5);
+  max-width: calc(34rem + 2 * var(--gutter));
+  margin-top: calc(-1 * var(--space-6));
+}
+
+.card {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.footer {
+  text-align: center;
+  color: var(--color-ink-muted);
+}
+
+/* Shared by the forms of the account pages */
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--space-4);
+}

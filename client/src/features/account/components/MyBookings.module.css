@@ -1,0 +1,24 @@
+.sections {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.title {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-3xl);
+  color: var(--color-navy-900);
+}
+
+.count {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink-muted);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}

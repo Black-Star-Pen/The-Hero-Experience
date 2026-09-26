@@ -55,7 +55,7 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 .links {
@@ -66,11 +66,16 @@
 }
 
 .link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
   font-weight: 500;
   color: var(--color-ink);
+  white-space: nowrap;
   text-decoration: none;
+  background: transparent;
+  border: 0;
   border-radius: var(--radius-md);
   transition:
     color var(--transition),
@@ -87,7 +92,37 @@
   font-weight: 600;
 }
 
-@media (max-width: 860px) {
+.link:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.account {
+  display: flex;
+  gap: var(--space-1);
+}
+
+/* Long first names are cut, the full name stays in the accessible name */
+.firstName {
+  max-width: 7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Wide screens: icon only (the label is still read by screen readers) */
+@media (min-width: 1201px) {
+  .logoutLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* The full navigation needs about 1 150 px when signed in */
+@media (max-width: 1200px) {
   .toggle {
     display: grid;
   }
@@ -111,7 +146,8 @@
     display: flex;
   }
 
-  .links {
+  .links,
+  .account {
     flex-direction: column;
   }
 
