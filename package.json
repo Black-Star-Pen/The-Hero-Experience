@@ -14,7 +14,8 @@
   },
   "workspaces": [
     "client",
-    "server"
+    "server",
+    "shared"
   ],
   "engines": {
     "node": ">=24"
