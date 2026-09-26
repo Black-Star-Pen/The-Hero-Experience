@@ -1,8 +1,31 @@
-.yarn
-node_modules
+# Dependencies
+node_modules/
+.yarn/
+
+# Build outputs & reports
+dist/
+dist-ssr/
+coverage/
+*.tsbuildinfo
+
+# Environment variables (only the *.env.sample templates are versioned)
+.env
+.env.*
+!.env.sample
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS & editors
 .DS_Store
-.idea
-.vscode
-.husky
-package.json
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.sw?
+
+# Local refactoring journal (never pushed)
 IA_UpDate.md
