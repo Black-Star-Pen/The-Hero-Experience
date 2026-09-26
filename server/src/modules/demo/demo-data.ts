@@ -1,5 +1,10 @@
 import { randomBytes } from "node:crypto";
-import { addDays, countDays, type ServiceSlug } from "@hero-experience/shared";
+import {
+  addDays,
+  countDays,
+  DEMO_CREDENTIALS,
+  type ServiceSlug,
+} from "@hero-experience/shared";
 import { eq, inArray } from "drizzle-orm";
 import type { Database } from "../../db/client.ts";
 import type { Logger } from "../../lib/logger.ts";
@@ -11,8 +16,7 @@ import { users } from "../users/users.schema.ts";
 
 /** Public demo account, documented in the README and on the sign-in page. */
 export const DEMO_ACCOUNT = {
-  email: "demo@hero-experience.test",
-  password: "hero-demo-2026",
+  ...DEMO_CREDENTIALS,
   firstName: "Mary Jane",
   lastName: "Watson",
 } as const;
