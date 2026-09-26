@@ -19,10 +19,14 @@ Le projet est **fictif** : aucune prestation ni aucun paiement réels.
   dans l'URL : une recherche se partage et le bouton « retour » fonctionne.
 - **Fiche héros** : caractéristiques, super-pouvoirs, tarif journalier, périodes déjà réservées
   et avis clients.
-- **Comptes** : inscription, connexion, profil, changement de mot de passe (API).
-- **Réservations** : prix calculé par le serveur, pas de double réservation d'un héros,
-  annulation tant que la prestation n'a pas commencé (API).
-- **Avis vérifiés** : seuls les clients ayant réservé un héros peuvent le noter (API).
+- **Comptes** : inscription, connexion (un bouton connecte au compte de démo), espace client
+  avec les réservations, le profil et le changement de mot de passe.
+- **Réservations** : formulaire sur la fiche héros (prix en direct, alerte si les dates sont
+  déjà prises, coordonnées pré-remplies), prix calculé par le serveur, pas de double
+  réservation d'un héros, annulation depuis l'espace client tant que la prestation n'a pas
+  commencé.
+- **Avis vérifiés** : seuls les clients ayant réservé un héros peuvent le noter ; chacun peut
+  modifier ou supprimer son avis.
 - **Accessibilité** : navigation au clavier, lien d'évitement, formulaires étiquetés, contrastes
   AA, respect de « réduire les animations ».
 
