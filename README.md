@@ -1,87 +1,120 @@
-# JS-Paris-BrainWaves-P2-Les4Fantastiques
+# The Hero Experience
 
-This project uses Harmonia. Harmonia is a framework meant to serve as a foundation for every project following the React-Express-MySQL stack, as learned in Wild Code School.
-It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying a pedagogical tool.
+> Déménagement, cours, événements, enquêtes : réservez les services d'un super-héros.
 
-## Setup & Use
+Application web de réservation de super-héros : un catalogue de 563 héros, des filtres par service,
+prix et disponibilité, des fiches détaillées, des avis clients vérifiés et un compte client.
+Le projet est **fictif** : aucune prestation ni aucun paiement réels.
 
-**Windows users:** be sure to run these commands in a git terminal to avoid [issues with newline formats](https://en.wikipedia.org/wiki/Newline#Issues_with_different_newline_formats):
+![Page d'accueil](docs/screenshots/accueil.jpg)
 
+| Catalogue                                    | Fiche héros                                              | Mobile                                                   |
+| -------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| ![Catalogue](docs/screenshots/catalogue.jpg) | ![Fiche de Spider-Man](docs/screenshots/fiche-heros.jpg) | ![Fiche de Hulk sur mobile](docs/screenshots/mobile.jpg) |
+
+## Fonctionnalités
+
+- **Catalogue** : recherche (nom ou identité secrète), filtres par service, prix et date de
+  disponibilité, tris (recommandés, mieux notés, prix, puissance), pagination. Les filtres vivent
+  dans l'URL : une recherche se partage et le bouton « retour » fonctionne.
+- **Fiche héros** : caractéristiques, super-pouvoirs, tarif journalier, périodes déjà réservées
+  et avis clients.
+- **Comptes** : inscription, connexion, profil, changement de mot de passe (API).
+- **Réservations** : prix calculé par le serveur, pas de double réservation d'un héros,
+  annulation tant que la prestation n'a pas commencé (API).
+- **Avis vérifiés** : seuls les clients ayant réservé un héros peuvent le noter (API).
+- **Accessibilité** : navigation au clavier, lien d'évitement, formulaires étiquetés, contrastes
+  AA, respect de « réduire les animations ».
+
+## Stack technique
+
+|              |                                                                                                |
+| ------------ | ---------------------------------------------------------------------------------------------- |
+| **Front**    | React 19, TypeScript, Vite 8, React Router 8, TanStack Query, CSS Modules                      |
+| **API**      | Node.js 24 (TypeScript exécuté nativement), Express 5, Zod, pino                               |
+| **Données**  | PostgreSQL + Drizzle ORM ; PGlite (PostgreSQL embarqué) en développement et en test            |
+| **Sécurité** | Argon2id, sessions en cookie `HttpOnly`, helmet (CSP), rate limiting, protection CSRF          |
+| **Qualité**  | ESLint 10, Prettier, Vitest, Testing Library, MSW, Supertest, Husky, commitlint                |
+| **Partagé**  | Package `@hero-experience/shared` : schémas Zod et types de l'API, communs au front et au back |
+
+## Démarrage rapide
+
+Prérequis : **Node.js 24** (voir `.nvmrc`). Rien d'autre : la base de données est embarquée.
+
+```bash
+npm install
+npm run dev
 ```
-git config --global core.eol lf
-git config --global core.autocrlf false
+
+- Front : <http://localhost:3000> (les appels `/api` sont relayés vers l'API)
+- API : <http://localhost:3310/api/health>
+
+Au premier lancement, l'API crée la base (`server/.data/`), importe les héros depuis la
+[SuperHero API](https://github.com/akabab/superhero-api) et ajoute des données de démonstration.
+
+**Compte de démo** : `demo@hero-experience.test` / `hero-demo-2026`
+
+### Utiliser un vrai PostgreSQL
+
+Copiez `server/.env.sample` en `server/.env` et renseignez `DATABASE_URL`
+(par exemple `postgres://hero:hero@localhost:5432/hero_experience`). Toutes les variables sont
+documentées dans ce fichier.
+
+## Scripts
+
+| Commande                          | Rôle                                                                                                      |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `npm run dev`                     | Lance le front et l'API en mode développement                                                             |
+| `npm run build`                   | Construit le front pour la production (`client/dist`)                                                     |
+| `npm start`                       | Lance l'API ; avec `NODE_ENV=production`, elle sert aussi le front construit (`DATABASE_URL` obligatoire) |
+| `npm test`                        | Lance tous les tests (API et front)                                                                       |
+| `npm run lint` / `npm run format` | Vérifie le code / le formate                                                                              |
+| `npm run typecheck`               | Vérifie les types de tous les workspaces                                                                  |
+| `npm run db:generate`             | Génère une migration SQL à partir du schéma Drizzle                                                       |
+| `npm run db:migrate`              | Applique les migrations                                                                                   |
+| `npm run db:seed`                 | Réimporte le catalogue et ajoute les données de démo si besoin                                            |
+
+## Architecture
+
+```text
+client/   Application React
+  src/app/          Routes et mise en page (en-tête, pied de page)
+  src/components/   Kit d'interface (boutons, champs, alertes…)
+  src/features/     Code par fonctionnalité (héros, avis, réservations…)
+  src/pages/        Pages, chargées à la demande
+server/   API Express
+  src/modules/      Une fonctionnalité par dossier : routes → contrôleur → service → repository
+  src/db/           Client Drizzle (PostgreSQL ou PGlite) et migrations
+  drizzle/          Migrations SQL générées
+shared/   Contrats de l'API (schémas Zod, types) partagés par le client et le serveur
 ```
 
-- In VSCode, install plugins **Prettier - Code formatter** and **ESLint** and configure them
-- Clone this repo, enter it
-- Run command `npm install`
-- Create environment files (`.env`) in both `server` and `client`: you can copy `.env.sample` files as starters (**don't** delete them)
+### API
 
-### Available Commands
+| Méthode          | Route                                     | Description                                                                                        |
+| ---------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `GET`            | `/api/heroes`                             | Catalogue : `search`, `service`, `minPrice`, `maxPrice`, `availableOn`, `sort`, `page`, `pageSize` |
+| `GET`            | `/api/heroes/:id`                         | Fiche d'un héros                                                                                   |
+| `GET`            | `/api/heroes/:id/availability`            | Périodes réservées (`from`, `to`)                                                                  |
+| `GET`            | `/api/heroes/:id/reviews`                 | Avis et note moyenne                                                                               |
+| `PUT` / `DELETE` | `/api/heroes/:id/reviews/mine`            | Donner, modifier ou retirer son avis                                                               |
+| `POST`           | `/api/auth/register`, `/login`, `/logout` | Inscription, connexion, déconnexion                                                                |
+| `GET`            | `/api/auth/session`                       | Utilisateur connecté (ou `null`)                                                                   |
+| `PATCH`          | `/api/me`                                 | Modifier son profil                                                                                |
+| `PUT`            | `/api/me/password`                        | Changer de mot de passe                                                                            |
+| `GET` / `POST`   | `/api/bookings`                           | Mes réservations / réserver                                                                        |
+| `POST`           | `/api/bookings/:id/cancel`                | Annuler une réservation                                                                            |
+| `GET`            | `/api/health`                             | État de l'API et de la base                                                                        |
 
-- `db:migrate` : Run the database migration script
-- `db:seed` : Run the database seed script
-- `dev` : Starts both servers (client + server) in one terminal
-- `dev:client` : Starts the React client
-- `dev:back` : Starts the Express server
-- `lint` : Runs validation tools (will be executed on every _commit_, and refuse unclean code)
+Les erreurs ont toujours la forme `{ "error": { "code", "message", "details"? } }`.
 
-## FAQ
+## Historique et crédits
 
-### Tools
+The Hero Experience est né en 2024 : c'est le projet d'examen de l'équipe « Les 4 Fantastiques »
+(formation développeur web de la Wild Code School, Paris), construit sur le template Harmonia.
+Cette version en est une refonte complète (architecture, API, sécurité, interface). Le premier
+commit du dépôt contient la version d'origine, sans les données personnelles de l'équipe.
 
-- _Concurrently_ : Allows for several commands to run concurrently in the same CLI
-- _Husky_ : Allows to execute specific commands that trigger on _git_ events
-- _Vite_ : Alternative to _Create-React-App_, packaging less tools for a more fluid experience
-- _ESLint_ : "Quality of code" tool, ensures chosen rules will be enforced
-- _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
-- _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
-
-## Deployment with Traefik
-
-> ⚠️ Prerequisites : You must have installed and configured Traefik on your VPS beforehand.
-> https://github.com/WildCodeSchool/vps-traefik-starter-kit/
-
-For deployment, you have to go to `secrets` → app `actions` on the github repo to insert via `New repository secret` :
-
-- SSH_HOST : IP address of your VPS
-- SSH_USER : SSH login to your VPS
-- SSH_PASSWORD : SSH connection password to your VPS
-
-And a public variable from the tab `/settings/variables/actions` :
-
-- PROJECT_NAME : the name of the project used to create the subdomain.
-
-> ⚠️ Warning : underscores are not allowed. They can cause trouble with the let's encrypt certificate
-
-Use this same tab to add the other environment variables required for the project if any.
-
-Only the server will be accessible. The root path `"/"` will redirect to the dist folder of your client. In order to allow that, please uncomment the line as explained in `server/src/app.js` (Line 102).
-Because the server will also serve the client, the global variable VITE_SERVER_URL will be set with an empty string.
-
-Your url will be ` https://${PROJECT-NAME}.${subdomain}.wilders.dev/`.
-
-### About the database
-
-The database is automaticaly deployed with the name of your repo. During the build of the projet (`docker-entry.sh`), the `node migrate.js` command is executed in the server. If you want to seed automaticaly your database using the `seed.js` script, replace the `cd ./server && node ./bin/migrate.js && node index.js` by `cd ./server && node ./bin/migrate.js && node ./bin/seed.js && node index.js`
-
-### About public assets (pictures, fonts...)
-
-Don't use any public folder on your client. This folder won't be accessible online. You may move your public assets in the `server/public` folder. Prefer [static assets](https://vitejs.dev/guide/assets) when possible.
-
-### About Specific Environment Variables (e.g., Email)
-
-Students should use the template provided in the `*.env.sample*` file as `<PROJECT_NAME><SPECIFIC_NAME>=<THE_VARIABLE>`.
-
-> ⚠️ **Warning:** The `PROJECT_NAME` should match the one used in the Git public variable.
-
-To add it during deployment, follow these 2 steps:
-
-- Add the following variable to the `docker-compose.prod.yml` file (as shown in the example: `PROJECT_NAME_SPECIFIC_NAME: ${PROJECT_NAME_SPECIFIC_NAME}`).
-- Connect to your server via SSH. Open the global `.env` file in Traefik (`nano ./traefik/data/.env`). Add the variable with the correct value and save the file.
-- Afterward, you can initiate automatic deployment. Docker will not refresh during this process.
-
-### About Logs
-
-If you want to access the logs of your online projet (to follow the deployement or to watch any bug error), connect to your VPS (`ssh user@host`).
-Then, go on your specific project and run  `docker compose logs -t -f`.
+- Données et images des héros : [SuperHero API](https://github.com/akabab/superhero-api) (akabab).
+  Les personnages appartiennent à leurs éditeurs respectifs.
+- Licence : [MIT](LICENSE.md).
