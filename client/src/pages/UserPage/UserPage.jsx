@@ -52,18 +52,18 @@ function UserPage() {
 
   const clickSubmit = (event) => {
     event.preventDefault();
-    for (let i = 0; i < users.length; i += 1) {
-      if (
-        emailInput === users[i].email &&
-        passwordInput === users[i].password
-      ) {
-        setLogin(true);
-        setCurrentUser(users[i]);
-      } else {
-        setEmailInput("");
-        setPasswordInput("");
-        setNotUser(true);
-      }
+    const user = users.find(
+      (candidate) =>
+        candidate.email === emailInput && candidate.password === passwordInput,
+    );
+    if (user) {
+      setLogin(true);
+      setCurrentUser(user);
+      setNotUser(false);
+    } else {
+      setEmailInput("");
+      setPasswordInput("");
+      setNotUser(true);
     }
   };
 
@@ -79,7 +79,7 @@ function UserPage() {
                 value={emailInput}
                 type="text"
                 id="email"
-                placeholder=" spiderman@gmail.com"
+                placeholder=" spiderman@example.com"
                 onChange={(event) => setEmailInput(event.target.value)}
               />
             </section>
