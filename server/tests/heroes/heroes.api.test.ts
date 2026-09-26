@@ -54,6 +54,8 @@ describe("heroes API", () => {
       imageUrl: expect.stringMatching(/^https:\/\/cdn\.jsdelivr\.net\//),
       dailyRate: expect.any(Number),
       services: expect.any(Array),
+      rating: { average: null, count: 0 },
+      nextAvailableDate: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
     });
   });
 

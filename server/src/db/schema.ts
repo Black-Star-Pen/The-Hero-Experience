@@ -4,5 +4,7 @@
  * re-exports them from here.
  */
 export * from "../modules/auth/sessions.schema.ts";
+export * from "../modules/bookings/bookings.schema.ts";
 export * from "../modules/heroes/heroes.schema.ts";
+export * from "../modules/reviews/reviews.schema.ts";
 export * from "../modules/users/users.schema.ts";
