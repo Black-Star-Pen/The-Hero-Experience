@@ -50,5 +50,5 @@ root.render(
     <StatusProvider>
       <RouterProvider router={router} />
     </StatusProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

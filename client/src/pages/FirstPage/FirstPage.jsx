@@ -6,7 +6,6 @@ import { useStatus } from "../../contexts/auth";
 import ban from "../../assets/images/logos/banner.svg";
 import logo from "../../assets/images/logos/logo-fond-0.png";
 
-
 function FirstPage() {
   const { login, currentUser, setLogin } = useStatus();
   const [showlog, setShowlog] = useState(false);
@@ -67,7 +66,8 @@ function FirstPage() {
           Déménagements sans stress, cours de sport dynamiques, animations
           d'anniversaires mémorables et bien plus encore...
           <br />
-          Réservez dès aujourd'hui et vivez l'aventure avec nos super-héros à vos côtés!
+          Réservez dès aujourd'hui et vivez l'aventure avec nos super-héros à
+          vos côtés!
         </p>
         <Link to="/accueil">
           <button type="button" className="button-entry">

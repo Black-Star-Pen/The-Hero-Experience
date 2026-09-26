@@ -9,7 +9,7 @@ export function StatusProvider({ children }) {
 
   const state = useMemo(
     () => ({ login, setLogin, currentUser, setCurrentUser }),
-    [login, setLogin, currentUser, setCurrentUser]
+    [login, setLogin, currentUser, setCurrentUser],
   );
   return <StatusContext value={state}>{children}</StatusContext>;
 }

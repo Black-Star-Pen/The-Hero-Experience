@@ -27,9 +27,9 @@ function HeroCard({ hero }) {
         </Link>
       </div>
       <article className="description-container">
-      <section id="card-title">
-        <h1>{hero.name}</h1>
-      </section>
+        <section id="card-title">
+          <h1>{hero.name}</h1>
+        </section>
         <div className="description">
           <p>{hero.biography.fullName}</p>
           <p>
@@ -47,15 +47,15 @@ HeroCard.propTypes = {
   hero: PropTypes.shape({
     id: PropTypes.number.isRequired,
     images: PropTypes.shape({
-      sm: PropTypes.string.isRequired
+      sm: PropTypes.string.isRequired,
     }).isRequired,
     name: PropTypes.string.isRequired,
     biography: PropTypes.shape({
-      fullName: PropTypes.string.isRequired
+      fullName: PropTypes.string.isRequired,
     }).isRequired,
     date: PropTypes.instanceOf(Date).isRequired,
-    price: PropTypes.number.isRequired
-  }).isRequired
+    price: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default HeroCard;

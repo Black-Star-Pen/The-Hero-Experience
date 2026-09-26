@@ -23,7 +23,7 @@ module.exports = new Proxy(tables, {
 
     // If the property (table) does not exist, throw a ReferenceError with a custom error message
     throw new ReferenceError(
-      `tables.${prop} is not defined. Did you register it in ${__filename}?`
+      `tables.${prop} is not defined. Did you register it in ${__filename}?`,
     );
   },
 });

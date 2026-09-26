@@ -26,7 +26,8 @@ const questions = [
       "La sécurité de nos clients est notre priorité absolue. Tous nos super-héros sont formés pour effectuer leurs tâches de manière professionnelle et sécurisée. De plus, nous avons une assurance couvrant toutes les interventions.",
   },
   {
-    question: "Puis-je demander un super-héros spécifique pour ma réservation ?",
+    question:
+      "Puis-je demander un super-héros spécifique pour ma réservation ?",
     answer:
       "Absolument ! Vous pouvez spécifier le super-héros que vous préférez lors de votre réservation, sous réserve de sa disponibilité. Nous ferons de notre mieux pour répondre à votre demande.",
   },

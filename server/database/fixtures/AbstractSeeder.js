@@ -13,7 +13,7 @@ class AbstractSeeder {
     // thx https://www.codeheroes.fr/2017/11/08/js-classes-abstraites-et-interfaces/
     if (this.constructor === AbstractSeeder) {
       throw new TypeError(
-        "Abstract class 'AbstractSeed' cannot be instantiated directly"
+        "Abstract class 'AbstractSeed' cannot be instantiated directly",
       );
     }
 

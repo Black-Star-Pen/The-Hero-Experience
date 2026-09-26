@@ -115,8 +115,10 @@ function Formulaire() {
             </div>
           </div>
           {errorMessage && (
-          <p id="error-message">* Veuillez renseigner tous les champs svp *</p>
-        )}
+            <p id="error-message">
+              * Veuillez renseigner tous les champs svp *
+            </p>
+          )}
         </div>
         <Paypal
           visibleButtonPaypal={visibleButtonPaypal}

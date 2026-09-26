@@ -36,20 +36,27 @@ function SearchBar({
         />
       </div>
       <div id="search-name">
-      <label htmlFor="name">Nom :</label>
-        <input 
-        value={searchName}
-        type="text" 
-        name="name-hero" 
-        id="name-hero"
-        placeholder=" Rechercher par nom" 
-        onChange={handleName}
+        <label htmlFor="name">Nom :</label>
+        <input
+          value={searchName}
+          type="text"
+          name="name-hero"
+          id="name-hero"
+          placeholder=" Rechercher par nom"
+          onChange={handleName}
         />
       </div>
       <button className="search" type="button" onClick={handleClick}>
         chercher
       </button>
-      <button type="button" aria-label="loupe" className="loupe" onClick={handleClick}><FaMagnifyingGlass /></button>
+      <button
+        type="button"
+        aria-label="loupe"
+        className="loupe"
+        onClick={handleClick}
+      >
+        <FaMagnifyingGlass />
+      </button>
     </section>
   );
 }

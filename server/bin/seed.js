@@ -93,7 +93,7 @@ const seed = async () => {
     database.end();
 
     console.info(
-      `${database.databaseName} filled from '${path.normalize(fixtures)}' 🌱`
+      `${database.databaseName} filled from '${path.normalize(fixtures)}' 🌱`,
     );
   } catch (err) {
     console.error("Error filling the database:", err.message, err.stack);

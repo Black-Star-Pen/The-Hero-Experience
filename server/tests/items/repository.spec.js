@@ -36,7 +36,7 @@ describe("ItemRepository", () => {
     // Assertions
     expect(database.query).toHaveBeenCalledWith(
       "insert into item (title, user_id) values (?, ?)",
-      [fakeItem.title, fakeItem.user_id]
+      [fakeItem.title, fakeItem.user_id],
     );
     expect(returned).toBe(result.insertId);
   });
@@ -71,7 +71,7 @@ describe("ItemRepository", () => {
     // Assertions
     expect(database.query).toHaveBeenCalledWith(
       "select * from item where id = ?",
-      [0]
+      [0],
     );
     expect(returned).toStrictEqual(rows[0]);
   });

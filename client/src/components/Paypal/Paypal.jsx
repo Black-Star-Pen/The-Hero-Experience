@@ -1,5 +1,5 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import "./Paypal.css";
 
 function Paypal({ visibleButtonPaypal, handleSubmit }) {
@@ -24,6 +24,6 @@ function Paypal({ visibleButtonPaypal, handleSubmit }) {
 }
 Paypal.propTypes = {
   visibleButtonPaypal: PropTypes.bool.isRequired,
-  handleSubmit: PropTypes.func.isRequired
-}
+  handleSubmit: PropTypes.func.isRequired,
+};
 export default Paypal;

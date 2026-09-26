@@ -24,7 +24,7 @@ function App() {
   const [searchDate, setSearchDate] = useState(() => new Date());
   const [searchName, setSearchName] = useState("");
   const [hideButton, setHideButton] = useState(false);
-  
+
   // générer une date random :
   function randomDate(start, end) {
     return new Date(+start + Math.random() * (end - start));
@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json"
+        "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json",
       )
       .then((response) => {
         const data = response.data;
@@ -50,15 +50,15 @@ function App() {
 
   // ajouter des héros en affichage 12 par 12 :
   const loadMoreHeroes = () => {
-    const endIndex =  (currentIndex+1) * 12; // calculer index de fin pour les suivants
+    const endIndex = (currentIndex + 1) * 12; // calculer index de fin pour les suivants
     const nextHeroes = filterHeroes.slice(0, endIndex); // extraire les héros suivants de la liste complète
-    setDisplayedHeroes(nextHeroes)    
+    setDisplayedHeroes(nextHeroes);
 
-    if (endIndex >= filterHeroes.length){
+    if (endIndex >= filterHeroes.length) {
       setHideButton(true);
-    }    
-    setCurrentIndex(currentIndex+1)
-  }; 
+    }
+    setCurrentIndex(currentIndex + 1);
+  };
 
   const checkOccupations = (hero, occupations) => {
     let exist = false;
@@ -71,7 +71,7 @@ function App() {
   const filterHeroesByOccupation = (occupations) => {
     setHideButton(false);
     const filteredHeroesWork = allHeroes.filter((hero) =>
-      checkOccupations(hero, occupations)
+      checkOccupations(hero, occupations),
     );
     setFilterHeroes(filteredHeroesWork);
     setDisplayedHeroes(filteredHeroesWork.slice(0, 12));
@@ -89,8 +89,8 @@ function App() {
           hero.date.getMonth() > searchDate.getMonth()) ||
         (hero.price >= Number(search) &&
           hero.date.getMonth() === searchDate.getMonth() &&
-          hero.date.getDate() >= searchDate.getDate())
-        );
+          hero.date.getDate() >= searchDate.getDate()),
+    );
 
     if (filter.length === 0) {
       setFilterHeroes(displayedHeroes);
@@ -99,14 +99,16 @@ function App() {
       setDisplayedHeroes(filter.slice(0, 12));
     }
   };
-  const handleName =(e) => {
-    setSearchName(e.target.value)
-    const filterByName = allHeroes.filter(hero => hero.name.toLowerCase().includes(e.target.value.toLowerCase()))
+  const handleName = (e) => {
+    setSearchName(e.target.value);
+    const filterByName = allHeroes.filter((hero) =>
+      hero.name.toLowerCase().includes(e.target.value.toLowerCase()),
+    );
     if (searchName !== "") {
-      setFilterHeroes(filterByName); 
+      setFilterHeroes(filterByName);
       setDisplayedHeroes(filterByName.slice(0, 12));
     }
-  }
+  };
   return (
     <div id="app">
       <div>
@@ -119,8 +121,8 @@ function App() {
           search={search}
           searchDate={searchDate}
           setSearchDate={setSearchDate}
-          searchName = {searchName}
-          handleName = {handleName}
+          searchName={searchName}
+          handleName={handleName}
         />
         <IconsBar filterHeroesByOccupation={filterHeroesByOccupation} />
       </div>
@@ -132,17 +134,18 @@ function App() {
         ))}
       </div>
       <div className="show-more">
-      {!hideButton &&( 
-        <button onClick={loadMoreHeroes} type="button">
-          Voir plus 
-        </button>)}
+        {!hideButton && (
+          <button onClick={loadMoreHeroes} type="button">
+            Voir plus
+          </button>
+        )}
         <div className="scroll">
           <ScrollToTp />
         </div>
       </div>
       <Slider />
       <Footer />
-      </div>
+    </div>
   );
 }
 

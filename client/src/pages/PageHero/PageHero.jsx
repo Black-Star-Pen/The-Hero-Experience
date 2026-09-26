@@ -15,7 +15,7 @@ function PageHero() {
   useEffect(() => {
     axios
       .get(
-        `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/${id}.json`
+        `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/${id}.json`,
       )
       .then((response) => {
         const fetchedSuperhero = response.data;
@@ -97,7 +97,7 @@ function PageHero() {
                           </strong>{" "}
                           {value}
                         </li>
-                      )
+                      ),
                     )}
                   </ul>
                 </div>
