@@ -1,8 +1,11 @@
-import type {
-  HeroAvailability,
-  HeroDetail,
-  HeroReviews,
-  HeroSummary,
+import {
+  DEMO_CREDENTIALS,
+  type Booking,
+  type HeroAvailability,
+  type HeroDetail,
+  type HeroReviews,
+  type HeroSummary,
+  type User,
 } from "@hero-experience/shared";
 
 const image = (size: string, file: string) =>
@@ -89,4 +92,58 @@ export const spiderManReviews: HeroReviews = {
   summary: { average: 4.5, count: 2 },
   mine: null,
   canReview: false,
+};
+
+export const demoUser: User = {
+  id: 1,
+  email: DEMO_CREDENTIALS.email,
+  firstName: "Mary Jane",
+  lastName: "Watson",
+  phone: "06 12 34 56 78",
+  address: "20 Ingram Street",
+  postalCode: "75011",
+  city: "Paris",
+  createdAt: "2026-09-01T10:00:00.000Z",
+};
+
+const bookingDefaults = {
+  address: "20 Ingram Street",
+  postalCode: "75011",
+  city: "Paris",
+  phone: "06 12 34 56 78",
+  notes: null,
+  createdAt: "2026-09-20T10:00:00.000Z",
+  cancelledAt: null,
+  status: "confirmed",
+} as const;
+
+/** Booking of Spider-Man by the demo user, in the future. */
+export const upcomingBooking: Booking = {
+  ...bookingDefaults,
+  id: 1,
+  hero: {
+    id: spiderMan.id,
+    name: spiderMan.name,
+    imageUrl: spiderMan.imageUrl,
+  },
+  service: "travaux",
+  startDate: "2099-01-01",
+  endDate: "2099-01-03",
+  days: 3,
+  dailyRate: 130,
+  totalPrice: 390,
+  cancellable: true,
+};
+
+export const pastBooking: Booking = {
+  ...bookingDefaults,
+  id: 2,
+  hero: { id: hulk.id, name: hulk.name, imageUrl: hulk.imageUrl },
+  service: "demenagement",
+  startDate: "2026-05-02",
+  endDate: "2026-05-02",
+  days: 1,
+  dailyRate: 200,
+  totalPrice: 200,
+  cancellable: false,
 };
