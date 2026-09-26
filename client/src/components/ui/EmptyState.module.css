@@ -1,0 +1,31 @@
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-4);
+  text-align: center;
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  font-size: 2rem;
+  color: var(--color-navy-700);
+  background: var(--color-navy-50);
+  border-radius: 50%;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  color: var(--color-navy-900);
+}
+
+.text {
+  max-width: 40ch;
+  color: var(--color-ink-muted);
+}

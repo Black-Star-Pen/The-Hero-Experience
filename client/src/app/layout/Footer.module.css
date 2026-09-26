@@ -1,0 +1,90 @@
+.footer {
+  color: rgb(255 255 255 / 0.8);
+  background: var(--color-navy-950);
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: var(--space-6);
+  padding-block: var(--space-8) var(--space-6);
+}
+
+.about {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  max-width: 34ch;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: 0.04em;
+}
+
+.logo {
+  width: auto;
+  height: 2rem;
+  /* The navy logo would disappear on the navy footer */
+  filter: brightness(0) invert(1);
+}
+
+.heading {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-xl);
+  color: #fff;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-2);
+  padding: 0;
+  font-size: var(--text-sm);
+  list-style: none;
+}
+
+.external {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.credits {
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+}
+
+.bottom {
+  padding-block: var(--space-5);
+  font-size: var(--text-xs);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+
+@media (max-width: 860px) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}

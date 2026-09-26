@@ -1,0 +1,17 @@
+.stars {
+  display: inline-flex;
+  gap: 0.1em;
+  color: var(--color-gold-400);
+}
+
+.sm {
+  font-size: var(--text-sm);
+}
+
+.md {
+  font-size: var(--text-base);
+}
+
+.lg {
+  font-size: var(--text-xl);
+}

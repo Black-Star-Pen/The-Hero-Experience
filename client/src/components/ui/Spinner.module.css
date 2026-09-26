@@ -1,0 +1,36 @@
+.spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  border: 0.18em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.sm {
+  width: 1em;
+  height: 1em;
+}
+
+.md {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-navy-700);
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  min-height: 12rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

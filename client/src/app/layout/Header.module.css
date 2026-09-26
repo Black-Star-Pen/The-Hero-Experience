@@ -1,0 +1,131 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgb(255 255 255 / 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: var(--header-height);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.logo {
+  width: auto;
+  height: 2.5rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--color-navy-900);
+  white-space: nowrap;
+}
+
+.accent {
+  color: var(--color-primary);
+}
+
+.toggle {
+  display: none;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.5rem;
+  color: var(--color-navy-900);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-md);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.links {
+  display: flex;
+  gap: var(--space-1);
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition:
+    color var(--transition),
+    background-color var(--transition);
+}
+
+.link:hover {
+  color: var(--color-navy-700);
+  background: var(--color-navy-50);
+}
+
+.link[aria-current="page"] {
+  color: var(--color-navy-700);
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .toggle {
+    display: grid;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--gutter) var(--space-5);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav[data-open="true"] {
+    display: flex;
+  }
+
+  .links {
+    flex-direction: column;
+  }
+
+  .link {
+    padding: var(--space-3);
+  }
+
+  .cta {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 380px) {
+  .wordmark {
+    font-size: 1.3rem;
+  }
+}

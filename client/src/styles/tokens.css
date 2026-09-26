@@ -1,0 +1,79 @@
+/* Design tokens: every color, size and effect of the UI comes from here. */
+:root {
+  /* Brand: the navy blue and the red of the winged "H" logo */
+  --color-navy-950: #060d2a;
+  --color-navy-900: #0b1a4a;
+  --color-navy-800: #122466;
+  --color-navy-700: #1b3389;
+  --color-navy-600: #2442b8;
+  --color-navy-100: #e3e8fa;
+  --color-navy-50: #f2f4fd;
+  --color-red-700: #b01b2c;
+  --color-red-600: #d62839;
+  --color-red-100: #fbdadd;
+  --color-red-50: #fdeef0;
+  --color-gold-400: #f5b301;
+  --color-green-700: #16703d;
+  --color-green-50: #e7f6ed;
+  --color-amber-800: #8a4d00;
+  --color-amber-50: #fff4df;
+
+  /* Neutrals */
+  --color-ink: #141a2e;
+  --color-ink-muted: #525b75;
+  --color-border: #dde2ef;
+  --color-border-strong: #b9c1d6;
+  --color-surface: #ffffff;
+  --color-background: #f5f7fc;
+
+  /* Semantic */
+  --color-primary: var(--color-red-600);
+  --color-primary-hover: var(--color-red-700);
+  --color-link: var(--color-navy-600);
+  --color-focus: #2f6fed;
+  --color-success: var(--color-green-700);
+  --color-success-bg: var(--color-green-50);
+  --color-warning: var(--color-amber-800);
+  --color-warning-bg: var(--color-amber-50);
+  --color-danger: var(--color-red-700);
+  --color-danger-bg: var(--color-red-50);
+
+  /* Typography */
+  --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: clamp(2rem, 4vw, 2.5rem);
+  --text-4xl: clamp(2.5rem, 5vw, 3.5rem);
+  --text-5xl: clamp(3rem, 8vw, 5.5rem);
+
+  /* Spacing (4 px grid) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Shapes and effects */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-full: 999px;
+  --shadow-sm: 0 1px 2px rgb(11 26 74 / 0.08);
+  --shadow-md: 0 6px 18px rgb(11 26 74 / 0.1);
+  --shadow-lg: 0 16px 40px rgb(11 26 74 / 0.18);
+  --transition: 160ms ease;
+
+  /* Layout */
+  --container-width: 1200px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --header-height: 4.5rem;
+}

@@ -1,0 +1,33 @@
+.header {
+  padding-block: var(--space-8) var(--space-7);
+  color: #fff;
+  background:
+    radial-gradient(
+        circle at 1px 1px,
+        rgb(255 255 255 / 0.08) 1px,
+        transparent 0
+      )
+      0 0 / 14px 14px,
+    radial-gradient(ellipse at 85% 0%, rgb(214 40 57 / 0.35), transparent 55%),
+    linear-gradient(135deg, var(--color-navy-950), var(--color-navy-800));
+}
+
+.eyebrow {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-red-100);
+}
+
+.title {
+  font-size: var(--text-4xl);
+}
+
+.text {
+  max-width: 60ch;
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  color: rgb(255 255 255 / 0.85);
+}
