@@ -36,9 +36,9 @@ export default defineConfig([
 
   // Client: React in the browser
   {
-    files: ["client/**/*.{js,jsx,ts,tsx}"],
+    files: ["client/**/*.{ts,tsx}"],
     extends: [
-      eslintReact.configs.recommended,
+      eslintReact.configs["recommended-type-checked"],
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
       jsxA11y.configs.recommended,
