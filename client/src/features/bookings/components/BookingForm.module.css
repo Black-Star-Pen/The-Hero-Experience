@@ -1,0 +1,72 @@
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Two fields side by side, stacked when the panel is too narrow */
+.pair,
+.period {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+  gap: var(--space-3);
+}
+
+/* A date field needs more room (date and calendar button) */
+.period {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
+}
+
+.fieldset {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  margin-bottom: var(--space-2);
+  padding: 0;
+  font-weight: 600;
+}
+
+.summary {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  background: var(--color-navy-50);
+  border-radius: var(--radius-md);
+}
+
+.summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.summary dd {
+  margin: 0;
+}
+
+.total {
+  padding-top: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  border-top: 1px solid var(--color-border);
+}
+
+.total dd {
+  color: var(--color-primary);
+}
+
+.note {
+  font-size: var(--text-xs);
+  text-align: center;
+  color: var(--color-ink-muted);
+}
+
+.confirmation {
+  display: grid;
+  gap: var(--space-3);
+}
