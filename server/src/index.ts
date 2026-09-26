@@ -1,9 +1,11 @@
+import { todayIso } from "@hero-experience/shared";
 import { createApp } from "./app.ts";
 import { loadEnv } from "./config/env.ts";
 import { loadEnvFile } from "./config/load-env-file.ts";
 import { connectDatabase } from "./db/client.ts";
 import { runMigrations } from "./db/migrations.ts";
 import { createLogger } from "./lib/logger.ts";
+import { seedDemoData } from "./modules/demo/demo-data.ts";
 import { ensureHeroCatalog } from "./modules/heroes/catalog/import-catalog.ts";
 import { createHeroesRepository } from "./modules/heroes/heroes.repository.ts";
 
@@ -21,6 +23,9 @@ await ensureHeroCatalog({
   repository: createHeroesRepository(connection.db),
   logger,
 });
+if (env.DEMO_DATA ?? env.NODE_ENV === "development") {
+  await seedDemoData({ db: connection.db, logger, today: todayIso() });
+}
 
 const app = createApp({ env, logger, db: connection.db });
 

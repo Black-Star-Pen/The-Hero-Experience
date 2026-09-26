@@ -36,6 +36,8 @@ const envSchema = z.preprocess(
       API_RATE_LIMIT: z.coerce.number().int().positive().default(600),
       /** Failed sign-in / sign-up attempts allowed per IP address and per 15 minutes. */
       AUTH_RATE_LIMIT: z.coerce.number().int().positive().default(10),
+      /** Creates the demo account, bookings and reviews on start. Defaults to true in development. */
+      DEMO_DATA: booleanString.optional(),
       /** Production build of the client, served by the API in production. */
       CLIENT_DIST_DIR: z
         .string()
