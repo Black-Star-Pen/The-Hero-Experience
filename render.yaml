@@ -1,0 +1,29 @@
+# Render Blueprint (https://render.com/docs/blueprint-spec): the API and the
+# built front run as a single free web service. The PostgreSQL database is
+# hosted elsewhere (Neon): Render's free databases are deleted after 30 days.
+services:
+  - type: web
+    name: the-hero-experience
+    runtime: node
+    plan: free
+    # Same region as the database, close to French-speaking visitors
+    region: frankfurt
+    branch: main
+    # NODE_ENV=production would make npm skip the devDependencies (Vite, TypeScript)
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    # Does not query the database: Neon can scale to zero between visits
+    healthCheckPath: /api/health/live
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Asked when the Blueprint is created: never commit it
+      - key: DATABASE_URL
+        sync: false
+      # Render's load balancer sets X-Forwarded-For and X-Forwarded-Proto
+      - key: TRUST_PROXY
+        value: "true"
+      # Public demo account, bookings and reviews
+      - key: DEMO_DATA
+        value: "true"

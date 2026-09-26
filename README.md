@@ -64,6 +64,24 @@ Copiez `server/.env.sample` en `server/.env` et renseignez `DATABASE_URL`
 (par exemple `postgres://hero:hero@localhost:5432/hero_experience`). Toutes les variables sont
 documentées dans ce fichier.
 
+## Mise en ligne (gratuite)
+
+Le site de démonstration tourne sans frais sur deux offres gratuites, sans carte bancaire :
+
+- **[Render](https://render.com)** : un seul service web (l'API sert aussi le front construit),
+  décrit dans [`render.yaml`](render.yaml) ;
+- **[Neon](https://neon.tech)** : la base PostgreSQL (région Francfort, comme le service).
+
+Pour le reproduire :
+
+1. Créer un projet Neon (PostgreSQL 18) et copier son adresse de connexion.
+2. Sur Render, **New → Blueprint**, choisir ce dépôt, puis coller l'adresse dans `DATABASE_URL`.
+3. Au premier démarrage, l'API crée les tables, importe les héros et le compte de démo.
+
+Render met les services gratuits en veille après 15 minutes sans visite (réveil en une minute
+environ). La sonde `/api/health/live` n'interroge pas la base : elle peut servir à garder le
+service éveillé sans empêcher Neon de se mettre en veille.
+
 ## Scripts
 
 | Commande                          | Rôle                                                                                                      |
