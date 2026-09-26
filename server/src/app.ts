@@ -23,7 +23,10 @@ import {
   createBookingsRouter,
 } from "./modules/bookings/bookings.routes.ts";
 import { createBookingsService } from "./modules/bookings/bookings.service.ts";
-import { createHealthRouter } from "./modules/health/health.routes.ts";
+import {
+  createHealthRouter,
+  liveness,
+} from "./modules/health/health.routes.ts";
 import { createHeroesRepository } from "./modules/heroes/heroes.repository.ts";
 import { createHeroesRouter } from "./modules/heroes/heroes.routes.ts";
 import { createHeroesService } from "./modules/heroes/heroes.service.ts";
@@ -74,6 +77,8 @@ export function createApp({
   app.use(requestLogger(logger));
 
   const api = express.Router();
+  // Probed every few seconds by the platform: never rate limited
+  api.get("/health/live", liveness);
   api.use(express.json({ limit: "100kb" }));
   api.use(apiRateLimit(env.API_RATE_LIMIT));
   api.use(cookieParser());

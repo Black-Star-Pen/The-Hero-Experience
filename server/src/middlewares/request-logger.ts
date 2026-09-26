@@ -29,6 +29,9 @@ export function requestLogger(logger: Logger) {
       }),
       res: (res: { statusCode: number }) => ({ statusCode: res.statusCode }),
     },
-    autoLogging: { ignore: (req) => req.url === "/api/health" },
+    // Health probes are too frequent to be logged
+    autoLogging: {
+      ignore: (req) => req.url?.startsWith("/api/health") ?? false,
+    },
   });
 }

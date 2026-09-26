@@ -1,8 +1,17 @@
 import { sql } from "drizzle-orm";
-import { Router } from "express";
+import { Router, type RequestHandler } from "express";
 import type { Database } from "../../db/client.ts";
 
-/** Liveness + database check, used by Docker health checks and monitoring. */
+/**
+ * Liveness probe for the hosting platform: the process answers. It never
+ * queries the database, so that frequent probes let a serverless database
+ * (Neon) scale to zero between visits.
+ */
+export const liveness: RequestHandler = (_req, res) => {
+  res.json({ status: "ok", uptime: Math.round(process.uptime()) });
+};
+
+/** Liveness + database check, for monitoring and manual diagnostics. */
 export function createHealthRouter({ db }: { db: Database }): Router {
   const router = Router();
 

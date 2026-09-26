@@ -21,6 +21,21 @@ describe("API foundation", () => {
     expect(response.headers["x-request-id"]).toMatch(/^[0-9a-f-]{36}$/);
   });
 
+  it("answers the liveness probe without the database or rate limit", async () => {
+    const probed = await createTestApp({ API_RATE_LIMIT: 1 });
+    // The database is gone: only the full health check notices it
+    await probed.close();
+
+    for (let probe = 0; probe < 3; probe += 1) {
+      const response = await request(probed.app).get("/api/health/live");
+      expect(response.status).toBe(200);
+      expect(response.body).toMatchObject({ status: "ok" });
+    }
+    await request(probed.app).get("/api/health").expect(503);
+    // The rest of the API is still rate limited
+    await request(probed.app).get("/api/health").expect(429);
+  });
+
   it("sets security headers and hides the framework", async () => {
     const response = await request(testApp.app).get("/api/health");
 
