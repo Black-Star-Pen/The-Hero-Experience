@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { isoDateSchema } from "./fields.ts";
+import type { RatingSummary } from "./reviews.ts";
 import { serviceSlugSchema, type ServiceSlug } from "./services.ts";
 
 export const HERO_SORTS = [
@@ -6,6 +8,7 @@ export const HERO_SORTS = [
   "name",
   "price-asc",
   "price-desc",
+  "rating",
   "power",
 ] as const;
 export type HeroSort = (typeof HERO_SORTS)[number];
@@ -27,6 +30,8 @@ export const heroListQuerySchema = z.preprocess(
       service: serviceSlugSchema.optional(),
       minPrice: z.coerce.number().int().min(0).optional(),
       maxPrice: z.coerce.number().int().min(0).optional(),
+      /** Only heroes free on this day (YYYY-MM-DD). */
+      availableOn: isoDateSchema.optional(),
       sort: z.enum(HERO_SORTS).default("recommended"),
       page: z.coerce.number().int().min(1).default(1),
       pageSize: z.coerce
@@ -72,6 +77,9 @@ export interface HeroSummary {
   /** Price of one day of service, in euros. */
   dailyRate: number;
   services: ServiceSlug[];
+  rating: RatingSummary;
+  /** First free day in the next 90 days (YYYY-MM-DD), null if fully booked. */
+  nextAvailableDate: string | null;
 }
 
 /** Everything about one hero (GET /api/heroes/:id). */
