@@ -5,6 +5,7 @@ import { Stars } from "../../../components/ui/Stars.tsx";
 import { formatRating, pluralize } from "../../../lib/format.ts";
 import { useHeroReviews } from "../../heroes/api.ts";
 import styles from "./HeroReviews.module.css";
+import { ReviewComposer } from "./ReviewComposer.tsx";
 import { ReviewList } from "./ReviewList.tsx";
 
 export function HeroReviews({
@@ -22,7 +23,11 @@ export function HeroReviews({
   }
 
   const [first] = reviews.data.pages;
-  const items = reviews.data.pages.flatMap((page) => page.items);
+  const mine = first?.mine ?? null;
+  // The review of the signed-in customer is shown apart, with its actions
+  const items = reviews.data.pages
+    .flatMap((page) => page.items)
+    .filter((review) => review.id !== mine?.id);
   const summary = first?.summary ?? { average: null, count: 0 };
 
   return (
@@ -43,6 +48,13 @@ export function HeroReviews({
           </div>
         </div>
       )}
+
+      <ReviewComposer
+        heroId={heroId}
+        heroName={heroName}
+        mine={mine}
+        canReview={first?.canReview ?? false}
+      />
 
       {items.length > 0 && <ReviewList reviews={items} />}
 
