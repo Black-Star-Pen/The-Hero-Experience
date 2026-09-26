@@ -59,13 +59,9 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
-    // Legacy CommonJS server, replaced in refactor/server-architecture
-    files: ["server/**/*.js"],
-    languageOptions: { sourceType: "commonjs" },
-  },
-  {
-    files: ["server/tests/**/*.js"],
-    languageOptions: { globals: globals.jest },
+    // Vitest asymmetric matchers (expect.any…) are typed as `any`
+    files: ["**/tests/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
+    rules: { "@typescript-eslint/no-unsafe-assignment": "off" },
   },
 
   prettier,
