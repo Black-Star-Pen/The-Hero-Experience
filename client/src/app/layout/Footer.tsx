@@ -5,7 +5,7 @@ import logo from "../../assets/logo.png";
 import { Container } from "../../components/ui/Container.tsx";
 import styles from "./Footer.module.css";
 
-const REPOSITORY_URL = "https://github.com/Black-Star-Pen/Hero-experience";
+const REPOSITORY_URL = "https://github.com/Black-Star-Pen/the-hero-experience";
 
 export function Footer() {
   return (

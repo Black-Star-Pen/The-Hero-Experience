@@ -1,4 +1,8 @@
-Copyright (c) 2024 wildcodeschool
+MIT License
+
+Copyright (c) 2024 Wild Code School (Harmonia project template)
+Copyright (c) 2024 « Les 4 Fantastiques » (original version of The Hero Experience)
+Copyright (c) 2026 Black-Star-Pen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

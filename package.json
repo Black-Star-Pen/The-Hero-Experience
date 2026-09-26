@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "description": "The Hero Experience : réservez un super-héros pour vos déménagements, cours, événements et plus encore.",
-  "homepage": "https://github.com/Black-Star-Pen/Hero-experience#readme",
+  "homepage": "https://github.com/Black-Star-Pen/the-hero-experience#readme",
   "bugs": {
-    "url": "https://github.com/Black-Star-Pen/Hero-experience/issues"
+    "url": "https://github.com/Black-Star-Pen/the-hero-experience/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Black-Star-Pen/Hero-experience.git"
+    "url": "git+https://github.com/Black-Star-Pen/the-hero-experience.git"
   },
   "workspaces": [
     "client",
