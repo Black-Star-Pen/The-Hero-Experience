@@ -10,7 +10,7 @@ export function createMeController(service: UsersService) {
     updateProfile: async (req, res) => {
       const { user } = currentAuth(res);
       const profile = parseInput(profileSchema.partial(), req.body);
-      res.json({ user: toUser(await service.updateProfile(user.id, profile)) });
+      res.json({ user: toUser(await service.updateProfile(user, profile)) });
     },
 
     changePassword: async (req, res) => {

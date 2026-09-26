@@ -1,4 +1,3 @@
-import { todayIso } from "@hero-experience/shared";
 import { createApp } from "./app.ts";
 import { loadEnv } from "./config/env.ts";
 import { loadEnvFile } from "./config/load-env-file.ts";
@@ -23,8 +22,15 @@ await ensureHeroCatalog({
   repository: createHeroesRepository(connection.db),
   logger,
 });
+let demoRefresh: NodeJS.Timeout | undefined;
 if (env.DEMO_DATA ?? env.NODE_ENV === "development") {
-  await seedDemoData({ db: connection.db, logger, today: todayIso() });
+  await seedDemoData({ db: connection.db, logger });
+  // The public demo account is reset once a day: checked every hour
+  demoRefresh = setInterval(() => {
+    seedDemoData({ db: connection.db, logger }).catch((error: unknown) => {
+      logger.error({ err: error }, "Demo data refresh failed");
+    });
+  }, 60 * 60_000);
 }
 
 const app = createApp({ env, logger, db: connection.db });
@@ -41,6 +47,7 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   logger.info({ signal }, "Shutting down");
   // Force exit if open connections keep the server alive for too long
   setTimeout(() => process.exit(1), 10_000).unref();
+  clearInterval(demoRefresh);
   server.close();
   await connection.close();
   process.exit(0);

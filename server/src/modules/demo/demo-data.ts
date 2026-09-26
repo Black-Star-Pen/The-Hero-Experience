@@ -3,6 +3,7 @@ import {
   addDays,
   countDays,
   DEMO_CREDENTIALS,
+  todayIso,
   type ServiceSlug,
 } from "@hero-experience/shared";
 import { eq, inArray } from "drizzle-orm";
@@ -250,25 +251,41 @@ const booking = (
   };
 };
 
+/** The fictional reviewers are recreated with the demo data: the first one dates it. */
+const reviewerEmail = (index: number) =>
+  `client${index + 1}@hero-experience.test`;
+
+/** Day (Europe/Paris) when the demo data was last created, null if never. */
+async function demoDataDay(db: Database): Promise<string | null> {
+  const [marker] = await db
+    .select({ createdAt: users.createdAt })
+    .from(users)
+    .where(eq(users.email, reviewerEmail(0)));
+  return marker ? todayIso(marker.createdAt) : null;
+}
+
 /**
- * Fills an empty database with a demo account, fictional customers,
- * bookings and reviews, so that the app looks alive on the first visit.
- * Does nothing if the demo account already exists or if the catalogue is empty.
+ * Fills the database with a demo account, fictional customers, bookings and
+ * reviews, so that the app looks alive on the first visit.
+ *
+ * The demo account is public: once a day, its bookings and reviews are
+ * recreated, its profile and password restored, and the other demo data
+ * recreated with dates relative to the new day. The account itself is kept,
+ * so that visitors who are signed in stay signed in.
+ * Does nothing if the data is from today or if the catalogue is empty.
  */
 export async function seedDemoData({
   db,
   logger,
-  today,
+  now = new Date(),
 }: {
   db: Database;
   logger: Logger;
-  today: string;
+  now?: Date;
 }): Promise<void> {
-  const [existing] = await db
-    .select({ id: users.id })
-    .from(users)
-    .where(eq(users.email, DEMO_ACCOUNT.email));
-  if (existing) return;
+  const today = todayIso(now);
+  const createdOn = await demoDataDay(db);
+  if (createdOn !== null && createdOn >= today) return;
 
   const heroIds = [
     ...new Set([
@@ -290,28 +307,49 @@ export async function seedDemoData({
     return;
   }
   const heroById = new Map(heroRows.map((hero) => [hero.id, hero]));
+  const demoProfile = {
+    passwordHash: await hashPassword(DEMO_ACCOUNT.password),
+    firstName: DEMO_ACCOUNT.firstName,
+    lastName: DEMO_ACCOUNT.lastName,
+    ...DEMO_ADDRESS,
+  };
 
-  await db.transaction(async (tx) => {
-    const [demo] = await tx
-      .insert(users)
-      .values({
-        email: DEMO_ACCOUNT.email,
-        passwordHash: await hashPassword(DEMO_ACCOUNT.password),
-        firstName: DEMO_ACCOUNT.firstName,
-        lastName: DEMO_ACCOUNT.lastName,
-        ...DEMO_ADDRESS,
-      })
+  const refreshed = await db.transaction(async (tx) => {
+    // Undo what visitors did with the demo account (the reviewers' data
+    // goes away with them, through the cascading foreign keys)
+    await tx.delete(users).where(
+      inArray(
+        users.email,
+        REVIEWERS.map((_, index) => reviewerEmail(index)),
+      ),
+    );
+    const [existing] = await tx
+      .update(users)
+      .set({ ...demoProfile, updatedAt: now })
+      .where(eq(users.email, DEMO_ACCOUNT.email))
       .returning({ id: users.id });
+    if (existing) {
+      await tx.delete(bookings).where(eq(bookings.userId, existing.id));
+      await tx.delete(reviews).where(eq(reviews.userId, existing.id));
+    }
+    const [demo] = existing
+      ? [existing]
+      : await tx
+          .insert(users)
+          .values({ email: DEMO_ACCOUNT.email, ...demoProfile })
+          .returning({ id: users.id });
+
     const reviewers = await tx
       .insert(users)
       .values(
         await Promise.all(
           REVIEWERS.map(async ([firstName, lastName], index) => ({
-            email: `client${index + 1}@hero-experience.test`,
+            email: reviewerEmail(index),
             // Nobody can sign in with these fictional accounts
             passwordHash: await hashPassword(randomBytes(32).toString("hex")),
             firstName,
             lastName,
+            createdAt: now,
           })),
         ),
       )
@@ -370,14 +408,15 @@ export async function seedDemoData({
         {
           ...booking(demo.id, superman, "travaux", addDays(today, 30), 3),
           status: "cancelled",
-          cancelledAt: new Date(),
+          cancelledAt: now,
         },
       ]);
     }
+    return existing !== undefined;
   });
 
   logger.info(
     { account: DEMO_ACCOUNT.email, reviews: REVIEWS.length },
-    "Demo data created",
+    refreshed ? "Demo data refreshed" : "Demo data created",
   );
 }

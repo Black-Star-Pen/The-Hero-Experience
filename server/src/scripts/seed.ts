@@ -1,4 +1,3 @@
-import { todayIso } from "@hero-experience/shared";
 import { loadEnv } from "../config/env.ts";
 import { loadEnvFile } from "../config/load-env-file.ts";
 import { connectDatabase } from "../db/client.ts";
@@ -9,7 +8,8 @@ import { importHeroes } from "../modules/heroes/catalog/import-catalog.ts";
 import { fetchSuperheroes } from "../modules/heroes/catalog/superhero-api.ts";
 import { createHeroesRepository } from "../modules/heroes/heroes.repository.ts";
 
-// Imports (or refreshes) the hero catalogue, then adds the demo data if missing
+// Imports (or refreshes) the hero catalogue, then creates the demo data if it
+// is missing or from a previous day
 loadEnvFile();
 const env = loadEnv();
 const logger = createLogger(env);
@@ -25,7 +25,7 @@ try {
     await fetchSuperheroes(),
   );
   logger.info({ imported }, "Hero catalogue imported or refreshed");
-  await seedDemoData({ db: connection.db, logger, today: todayIso() });
+  await seedDemoData({ db: connection.db, logger });
 } finally {
   await connection.close();
 }
