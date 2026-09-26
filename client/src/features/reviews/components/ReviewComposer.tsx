@@ -87,6 +87,17 @@ function MyReview({
   const [confirming, setConfirming] = useState(false);
   const remove = useDeleteReview(heroId);
 
+  // The refreshed reviews unmount this component, sometimes before the
+  // callbacks given to mutate() would run: the promise always settles
+  const confirmDelete = async () => {
+    try {
+      await remove.mutateAsync();
+    } catch {
+      return; // Shown below
+    }
+    onDeleted();
+  };
+
   return (
     <>
       <ReviewCard review={review} />
@@ -102,7 +113,7 @@ function MyReview({
               variant="danger"
               size="sm"
               loading={remove.isPending}
-              onClick={() => remove.mutate(undefined, { onSuccess: onDeleted })}
+              onClick={() => void confirmDelete()}
             >
               Oui, supprimer
             </Button>
