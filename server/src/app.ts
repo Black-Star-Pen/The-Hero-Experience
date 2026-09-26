@@ -9,6 +9,9 @@ import { notFoundHandler } from "./middlewares/not-found.ts";
 import { requestLogger } from "./middlewares/request-logger.ts";
 import { serveClient } from "./middlewares/serve-client.ts";
 import { createHealthRouter } from "./modules/health/health.routes.ts";
+import { createHeroesRepository } from "./modules/heroes/heroes.repository.ts";
+import { createHeroesRouter } from "./modules/heroes/heroes.routes.ts";
+import { createHeroesService } from "./modules/heroes/heroes.service.ts";
 
 export interface AppDependencies {
   env: Env;
@@ -47,6 +50,10 @@ export function createApp({ env, logger, db }: AppDependencies): Express {
     }),
   );
   api.use("/health", createHealthRouter({ db }));
+  api.use(
+    "/heroes",
+    createHeroesRouter(createHeroesService(createHeroesRepository(db))),
+  );
   api.use(notFoundHandler);
   app.use("/api", api);
 

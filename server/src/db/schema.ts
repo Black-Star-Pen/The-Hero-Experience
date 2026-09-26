@@ -3,4 +3,4 @@
  * to generate SQL migrations. Each feature module owns its tables and
  * re-exports them from here.
  */
-export {};
+export * from "../modules/heroes/heroes.schema.ts";

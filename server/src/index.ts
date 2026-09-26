@@ -4,6 +4,8 @@ import { loadEnvFile } from "./config/load-env-file.ts";
 import { connectDatabase } from "./db/client.ts";
 import { runMigrations } from "./db/migrations.ts";
 import { createLogger } from "./lib/logger.ts";
+import { ensureHeroCatalog } from "./modules/heroes/catalog/import-catalog.ts";
+import { createHeroesRepository } from "./modules/heroes/heroes.repository.ts";
 
 loadEnvFile();
 const env = loadEnv();
@@ -15,6 +17,10 @@ const connection = await connectDatabase({
 });
 logger.info({ driver: connection.driver }, "Database connected");
 await runMigrations(connection);
+await ensureHeroCatalog({
+  repository: createHeroesRepository(connection.db),
+  logger,
+});
 
 const app = createApp({ env, logger, db: connection.db });
 
