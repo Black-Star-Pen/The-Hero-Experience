@@ -4,7 +4,8 @@ import styles from "./Button.module.css";
 import { Spinner } from "./Spinner.tsx";
 
 interface ButtonStyle {
-  variant?: "primary" | "secondary" | "ghost" | "danger";
+  /** `light` is the quiet variant for dark backgrounds. */
+  variant?: "primary" | "secondary" | "ghost" | "light" | "danger";
   size?: "sm" | "md" | "lg";
   /** Takes the full width of its container. */
   block?: boolean;

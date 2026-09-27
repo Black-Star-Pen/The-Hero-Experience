@@ -67,12 +67,7 @@ export function HomePage() {
               <ButtonLink to="/heros" size="lg">
                 Trouver mon héros <FiArrowRight aria-hidden="true" />
               </ButtonLink>
-              <ButtonLink
-                to="/#comment-ca-marche"
-                size="lg"
-                variant="ghost"
-                className={styles.ghost}
-              >
+              <ButtonLink to="/#comment-ca-marche" size="lg" variant="light">
                 Comment ça marche ?
               </ButtonLink>
             </div>

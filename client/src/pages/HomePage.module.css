@@ -61,14 +61,6 @@
   gap: var(--space-3);
 }
 
-.ghost {
-  color: #fff;
-}
-
-.ghost:hover {
-  background: rgb(255 255 255 / 0.1);
-}
-
 .perks {
   display: flex;
   flex-wrap: wrap;
