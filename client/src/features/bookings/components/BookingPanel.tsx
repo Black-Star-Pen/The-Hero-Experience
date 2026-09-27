@@ -20,7 +20,7 @@ function BookingAction({ hero }: { hero: HeroDetail }) {
   const back = `/heros/${hero.id}`;
   return (
     <div className={styles.visitor}>
-      <ButtonLink to={loginLink(back)} size="lg" block>
+      <ButtonLink to={loginLink(back)} block>
         Se connecter pour réserver
       </ButtonLink>
       <p className={styles.hint}>
