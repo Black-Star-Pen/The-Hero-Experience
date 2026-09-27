@@ -99,9 +99,17 @@ export function Header() {
           <ul className={styles.links}>
             {NAVIGATION.map((item) => (
               <li key={item.to}>
-                <NavLink to={item.to} className={styles.link} end>
-                  {item.label}
-                </NavLink>
+                {item.to.includes("#") ? (
+                  // Sections of the home page: NavLink ignores the hash and
+                  // would mark them all as the current page on the home page
+                  <Link to={item.to} className={styles.link}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <NavLink to={item.to} className={styles.link} end>
+                    {item.label}
+                  </NavLink>
+                )}
               </li>
             ))}
           </ul>

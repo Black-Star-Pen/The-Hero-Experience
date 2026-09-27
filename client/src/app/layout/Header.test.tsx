@@ -59,4 +59,28 @@ describe("header", () => {
     // Called once the API has closed the session
     await waitFor(() => expect(reloadAt).toHaveBeenCalledWith("/"));
   });
+
+  it("marks only real pages as the current page", async () => {
+    renderRoute("/");
+    const navigation = await screen.findByRole("navigation", {
+      name: "Navigation principale",
+    });
+
+    for (const name of ["Nos héros", "Services", "Comment ça marche", "FAQ"]) {
+      expect(
+        within(navigation).getByRole("link", { name }),
+      ).not.toHaveAttribute("aria-current");
+    }
+  });
+
+  it("highlights the page of the catalogue", async () => {
+    renderRoute("/heros");
+    const navigation = await screen.findByRole("navigation", {
+      name: "Navigation principale",
+    });
+
+    expect(
+      within(navigation).getByRole("link", { name: "Nos héros" }),
+    ).toHaveAttribute("aria-current", "page");
+  });
 });
