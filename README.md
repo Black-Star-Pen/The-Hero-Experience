@@ -1,6 +1,11 @@
 # The Hero Experience
 
+[![CI](https://github.com/Black-Star-Pen/The-Hero-Experience/actions/workflows/ci.yml/badge.svg)](https://github.com/Black-Star-Pen/The-Hero-Experience/actions/workflows/ci.yml)
+
 > Déménagement, cours, événements, enquêtes : réservez les services d'un super-héros.
+
+**Démo en ligne : <https://the-hero-experience.onrender.com>** (le compte de démo est proposé sur la
+page de connexion).
 
 Application web de réservation de super-héros : un catalogue de 563 héros, des filtres par service,
 prix et disponibilité, des fiches détaillées, des avis clients vérifiés et un compte client.
@@ -76,13 +81,19 @@ Le site de démonstration tourne sans frais sur deux offres gratuites, sans cart
 
 Pour le reproduire :
 
-1. Créer un projet Neon (PostgreSQL 18) et copier son adresse de connexion.
+1. Créer un projet Neon (PostgreSQL 18) et copier son adresse de connexion directe.
 2. Sur Render, **New → Blueprint**, choisir ce dépôt, puis coller l'adresse dans `DATABASE_URL`.
 3. Au premier démarrage, l'API crée les tables, importe les héros et le compte de démo.
+4. Copier le **Deploy Hook** du service Render (onglet _Settings_) dans le secret
+   `RENDER_DEPLOY_HOOK_URL` du dépôt GitHub.
 
-Render met les services gratuits en veille après 15 minutes sans visite (réveil en une minute
-environ). La sonde `/api/health/live` n'interroge pas la base : elle peut servir à garder le
-service éveillé sans empêcher Neon de se mettre en veille.
+**Déploiement continu** : chaque push sur `main` passe par la CI GitHub Actions (lint, formatage,
+types, tests, build). Si tout passe, elle appelle le Deploy Hook avec le commit testé : un commit
+qui casse les tests n'est jamais déployé.
+
+**Veille** : Render met les services gratuits en veille après 15 minutes sans visite (réveil en
+une minute environ). Un moniteur gratuit qui interroge `/api/health/live` toutes les 5 minutes
+garde le service éveillé ; cette sonde n'interroge pas la base, qui peut donc se mettre en veille.
 
 ## Scripts
 

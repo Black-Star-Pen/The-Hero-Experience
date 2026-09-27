@@ -1,0 +1,58 @@
+# Quality checks on every push and pull request. When they pass on main, the
+# tested commit is deployed to Render through its deploy hook.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  checks:
+    name: Lint, types, tests and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  deploy:
+    name: Deploy to Render
+    needs: checks
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: production
+      url: https://the-hero-experience.onrender.com
+    steps:
+      - name: Trigger the deploy hook
+        env:
+          # Repository secret: the URL lets anyone trigger a deploy
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK" ]; then
+            echo "::notice::RENDER_DEPLOY_HOOK_URL is not set: nothing deployed."
+            exit 0
+          fi
+          # Deploys exactly the commit that passed the checks
+          curl --fail --silent --show-error --max-time 30 \
+            --request POST "${DEPLOY_HOOK}&ref=${GITHUB_SHA}" > /dev/null
+          echo "Deploy of ${GITHUB_SHA} requested."

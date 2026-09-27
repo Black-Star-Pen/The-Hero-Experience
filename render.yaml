@@ -14,7 +14,8 @@ services:
     startCommand: npm start
     # Does not query the database: Neon can scale to zero between visits
     healthCheckPath: /api/health/live
-    autoDeployTrigger: commit
+    # Deploys are requested by the CI (deploy hook), once the checks pass
+    autoDeployTrigger: "off"
     envVars:
       - key: NODE_ENV
         value: production
