@@ -17,6 +17,10 @@ Le projet est **fictif** : aucune prestation ni aucun paiement réels.
 | -------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | ![Catalogue](docs/screenshots/catalogue.jpg) | ![Fiche de Spider-Man](docs/screenshots/fiche-heros.jpg) | ![Fiche de Hulk sur mobile](docs/screenshots/mobile.jpg) |
 
+| Réservation                                                                            | Espace client                                                          | Avis vérifiés                                              |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------- |
+| ![Réservation de Spider-Man, prix calculé en direct](docs/screenshots/reservation.jpg) | ![Espace client du compte de démo](docs/screenshots/espace-client.jpg) | ![Rédaction d'un avis sur Hulk](docs/screenshots/avis.jpg) |
+
 ## Fonctionnalités
 
 - **Catalogue** : recherche (nom ou identité secrète), filtres par service, prix et date de
