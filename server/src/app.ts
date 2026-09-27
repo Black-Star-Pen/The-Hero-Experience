@@ -80,7 +80,7 @@ export function createApp({
   // Probed every few seconds by the platform: never rate limited
   api.get("/health/live", liveness);
   api.use(express.json({ limit: "100kb" }));
-  api.use(apiRateLimit(env.API_RATE_LIMIT));
+  api.use(apiRateLimit(env.API_RATE_LIMIT, env.CLIENT_IP_HEADER));
   api.use(cookieParser());
   api.use(authenticate(sessions, cookie));
   api.use(requireSameOrigin);
@@ -91,7 +91,10 @@ export function createApp({
     createAuthRouter({
       auth: createAuthService({ users, sessions }),
       cookie,
-      bruteForceLimiter: bruteForceRateLimit(env.AUTH_RATE_LIMIT),
+      bruteForceLimiter: bruteForceRateLimit(
+        env.AUTH_RATE_LIMIT,
+        env.CLIENT_IP_HEADER,
+      ),
     }),
   );
   api.use("/me", createMeRouter(createUsersService({ users, sessions })));

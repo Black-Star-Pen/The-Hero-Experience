@@ -24,6 +24,11 @@ services:
       # Render's load balancer sets X-Forwarded-For and X-Forwarded-Proto
       - key: TRUST_PROXY
         value: "true"
+      # Render is behind Cloudflare, which sets the real client IP in this
+      # header (and refuses requests that try to set it): used by the rate
+      # limiters, which would otherwise count the requests of a shared proxy
+      - key: CLIENT_IP_HEADER
+        value: cf-connecting-ip
       # Public demo account, bookings and reviews
       - key: DEMO_DATA
         value: "true"

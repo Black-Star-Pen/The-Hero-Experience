@@ -32,6 +32,17 @@ const envSchema = z.preprocess(
         .transform((dir) => path.resolve(serverRoot, dir)),
       /** Set to true behind a reverse proxy so client IPs are read from X-Forwarded-For. */
       TRUST_PROXY: booleanString.default(false),
+      /**
+       * Header holding the client IP address, set by the edge of the hosting
+       * platform and impossible to forge there (cf-connecting-ip on Render,
+       * which is behind Cloudflare). Used by the rate limiters instead of the
+       * address of the last proxy.
+       */
+      CLIENT_IP_HEADER: z
+        .string()
+        .regex(/^[a-z0-9-]+$/i, "Nom d'en-tête HTTP invalide.")
+        .transform((header) => header.toLowerCase())
+        .optional(),
       /** Requests allowed per IP address and per 15 minutes on the whole API. */
       API_RATE_LIMIT: z.coerce.number().int().positive().default(600),
       /** Failed sign-in / sign-up attempts allowed per IP address and per 15 minutes. */
