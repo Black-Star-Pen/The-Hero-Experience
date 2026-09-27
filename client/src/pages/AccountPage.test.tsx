@@ -20,7 +20,7 @@ describe("account page", () => {
       }),
     );
     expect(
-      await screen.findByRole("heading", { name: "Bonjour Mary Jane !" }),
+      await screen.findByRole("heading", { name: "Bonjour Le Prince !" }),
     ).toBeInTheDocument();
   });
 

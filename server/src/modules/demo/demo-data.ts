@@ -18,7 +18,7 @@ import { users } from "../users/users.schema.ts";
 /** Public demo account, documented in the README and on the sign-in page. */
 export const DEMO_ACCOUNT = {
   ...DEMO_CREDENTIALS,
-  firstName: "Mary Jane",
+  firstName: "Le Prince",
   lastName: "Watson",
 } as const;
 
@@ -264,6 +264,18 @@ async function demoDataDay(db: Database): Promise<string | null> {
   return marker ? todayIso(marker.createdAt) : null;
 }
 
+/** False when the name of the demo account differs from DEMO_ACCOUNT (renamed in a new version). */
+async function demoNameIsCurrent(db: Database): Promise<boolean> {
+  const [demo] = await db
+    .select({ firstName: users.firstName, lastName: users.lastName })
+    .from(users)
+    .where(eq(users.email, DEMO_ACCOUNT.email));
+  return (
+    demo?.firstName === DEMO_ACCOUNT.firstName &&
+    demo.lastName === DEMO_ACCOUNT.lastName
+  );
+}
+
 /**
  * Fills the database with a demo account, fictional customers, bookings and
  * reviews, so that the app looks alive on the first visit.
@@ -272,7 +284,8 @@ async function demoDataDay(db: Database): Promise<string | null> {
  * recreated, its profile and password restored, and the other demo data
  * recreated with dates relative to the new day. The account itself is kept,
  * so that visitors who are signed in stay signed in.
- * Does nothing if the data is from today or if the catalogue is empty.
+ * Does nothing if the data is from today (and the demo account still has its
+ * name) or if the catalogue is empty.
  */
 export async function seedDemoData({
   db,
@@ -285,7 +298,13 @@ export async function seedDemoData({
 }): Promise<void> {
   const today = todayIso(now);
   const createdOn = await demoDataDay(db);
-  if (createdOn !== null && createdOn >= today) return;
+  if (
+    createdOn !== null &&
+    createdOn >= today &&
+    (await demoNameIsCurrent(db))
+  ) {
+    return;
+  }
 
   const heroIds = [
     ...new Set([

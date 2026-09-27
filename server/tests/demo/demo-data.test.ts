@@ -118,7 +118,7 @@ describe("demo data", () => {
 
     const session = (await agent.get("/api/auth/session"))
       .body as SessionResponse;
-    expect(session.user?.firstName).toBe("Mary Jane");
+    expect(session.user?.firstName).toBe(DEMO_ACCOUNT.firstName);
     const bookings = (await agent.get("/api/bookings")).body as Booking[];
     expect(summary(bookings)).toEqual([
       ["Superman", "cancelled", addDays(tomorrow, 30)],
@@ -129,6 +129,26 @@ describe("demo data", () => {
       await request(testApp.app).get("/api/heroes/620/reviews")
     ).body as HeroReviews;
     expect(spiderMan.summary.count).toBe(3);
+  });
+
+  it("is recreated at once when the demo account has another name", async () => {
+    // A former version of the app named the demo customer differently
+    await testApp.db
+      .update(users)
+      .set({ firstName: "Mary Jane" })
+      .where(eq(users.email, DEMO_ACCOUNT.email));
+
+    await seedDemoData({
+      db: testApp.db,
+      logger,
+      now: new Date(`${addDays(today, 1)}T08:00:00Z`),
+    });
+
+    const [demo] = await testApp.db
+      .select({ firstName: users.firstName })
+      .from(users)
+      .where(eq(users.email, DEMO_ACCOUNT.email));
+    expect(demo?.firstName).toBe("Le Prince");
   });
 
   it("does nothing without a catalogue", async () => {

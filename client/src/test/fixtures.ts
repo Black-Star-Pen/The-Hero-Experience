@@ -97,7 +97,7 @@ export const spiderManReviews: HeroReviews = {
 export const demoUser: User = {
   id: 1,
   email: DEMO_CREDENTIALS.email,
-  firstName: "Mary Jane",
+  firstName: "Le Prince",
   lastName: "Watson",
   phone: "06 12 34 56 78",
   address: "20 Ingram Street",

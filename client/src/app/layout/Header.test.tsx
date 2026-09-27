@@ -52,7 +52,7 @@ describe("header", () => {
     const { user } = renderRoute("/compte");
 
     expect(
-      await screen.findByRole("link", { name: "Mary Jane (mon compte)" }),
+      await screen.findByRole("link", { name: "Le Prince (mon compte)" }),
     ).toHaveAttribute("href", "/compte");
     await user.click(screen.getByRole("button", { name: "Déconnexion" }));
 

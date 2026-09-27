@@ -50,7 +50,7 @@ describe("sign-in page", () => {
     ).toBeInTheDocument();
     expect(router.state.location.pathname).toBe("/heros/620");
     expect(
-      screen.getByRole("link", { name: "Mary Jane (mon compte)" }),
+      screen.getByRole("link", { name: "Le Prince (mon compte)" }),
     ).toBeInTheDocument();
   });
 
@@ -66,7 +66,7 @@ describe("sign-in page", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Bonjour Mary Jane !" }),
+      await screen.findByRole("heading", { name: "Bonjour Le Prince !" }),
     ).toBeInTheDocument();
     expect(router.state.location.pathname).toBe("/compte");
   });
@@ -100,7 +100,7 @@ describe("sign-up page", () => {
   it("explains that the e-mail is already used", async () => {
     const { user } = renderRoute("/inscription");
 
-    await user.type(await screen.findByLabelText(/Prénom/), "Mary Jane");
+    await user.type(await screen.findByLabelText(/Prénom/), "Le Prince");
     await user.type(screen.getByLabelText(/^Nom/), "Watson");
     await user.type(
       screen.getByLabelText(/Adresse e-mail/),
